@@ -1,18 +1,214 @@
 {
   "parked-cars": [
     {
-      "plateNumber": "IDV-3600",
+      "plateNumber": "HSM-3938",
+      "id": 1,
       "size": "0",
-      "timeIn": 1626082200000,
-      "timeOut": null,
-      "id": 1
+      "timeIn": 1626198568539,
+      "timeOut": 1626199092510
     },
     {
-      "plateNumber": "HXR-6579",
+      "plateNumber": "JAL-3727",
+      "id": 2,
+      "size": "0",
+      "timeIn": 1626198600643,
+      "timeOut": 1626199100339
+    },
+    {
+      "plateNumber": "HVY-4282",
+      "id": 3,
+      "size": "0",
+      "timeIn": 1626198630715,
+      "timeOut": 1626201225813
+    },
+    {
+      "plateNumber": "IGX-4586",
+      "id": 4,
+      "size": "0",
+      "timeIn": 1626198634930,
+      "timeOut": 1626201468777
+    },
+    {
+      "plateNumber": "FIE-4426",
+      "id": 5,
+      "size": "0",
+      "timeIn": 1626198637007,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FZC-3394",
+      "id": 6,
+      "size": "0",
+      "timeIn": 1626198674372,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GAA-0999",
+      "id": 7,
+      "size": "0",
+      "timeIn": 1626198675234,
+      "timeOut": 1626201462799
+    },
+    {
+      "plateNumber": "FLB-7220",
+      "id": 8,
+      "size": "0",
+      "timeIn": 1626198675805,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GSJ-2636",
+      "id": 9,
+      "size": "0",
+      "timeIn": 1626198677672,
+      "timeOut": 1626200008701
+    },
+    {
+      "plateNumber": "IEG-8436",
+      "id": 10,
+      "size": "0",
+      "timeIn": 1626198678212,
+      "timeOut": 1626201371940
+    },
+    {
+      "plateNumber": "FTJ-5096",
+      "id": 11,
+      "size": "2",
+      "timeIn": 1626199051607,
+      "timeOut": 1626201874325
+    },
+    {
+      "plateNumber": "IAY-5003",
+      "id": 12,
+      "size": "2",
+      "timeIn": 1626199052640,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GQS-3160",
+      "id": 13,
+      "size": "2",
+      "timeIn": 1626199053847,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HKH-7980",
+      "id": 14,
       "size": "1",
-      "timeIn": 1626103537525,
-      "timeOut": 1626105540000,
-      "id": 2
+      "timeIn": 1626199057305,
+      "timeOut": 1626201513477
+    },
+    {
+      "plateNumber": "FSB-2127",
+      "id": 15,
+      "size": "1",
+      "timeIn": 1626199058093,
+      "timeOut": 1626201499197
+    },
+    {
+      "plateNumber": "JAX-5980",
+      "id": 16,
+      "size": "1",
+      "timeIn": 1626199059150,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IIA-6373",
+      "id": 17,
+      "size": "1",
+      "timeIn": 1626199060335,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GJF-7258",
+      "id": 18,
+      "size": "1",
+      "timeIn": 1626199061115,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HQG-8016",
+      "id": 19,
+      "size": "1",
+      "timeIn": 1626199070385,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IMN-2449",
+      "id": 20,
+      "size": "1",
+      "timeIn": 1626199071719,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "JL-3727",
+      "id": 21,
+      "size": "0",
+      "timeIn": 1626199109048,
+      "timeOut": 1626199983628
+    },
+    {
+      "plateNumber": "HFO-8258",
+      "id": 22,
+      "size": "0",
+      "timeIn": 1626199111793,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GMV-3715",
+      "id": 23,
+      "size": "0",
+      "timeIn": 1626199113189,
+      "timeOut": 1626200005934
+    },
+    {
+      "plateNumber": "JAF-2125",
+      "id": 24,
+      "size": "0",
+      "timeIn": 1626199113661,
+      "timeOut": 1626201212162
+    },
+    {
+      "plateNumber": "ISP-9310",
+      "id": 25,
+      "size": "0",
+      "timeIn": 1626199113939,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IWI-2332",
+      "id": 26,
+      "size": "0",
+      "timeIn": 1626199114629,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HAB-3588",
+      "id": 27,
+      "size": "0",
+      "timeIn": 1626199114808,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GDY-2835",
+      "id": 28,
+      "size": "0",
+      "timeIn": 1626199115056,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IKK-2896",
+      "id": 29,
+      "size": "0",
+      "timeIn": 1626199115296,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HK-7980",
+      "id": 30,
+      "size": "0",
+      "timeIn": 1626201519995,
+      "timeOut": 1626201523339
     }
   ],
   "parking-lots": [
@@ -21,9 +217,9 @@
       "data": [
         [
           [
-            "IDV-3600",
-            "HXR-6579",
-            ""
+            "",
+            "",
+            "FIE-4426"
           ],
           [
             "",
@@ -33,13 +229,13 @@
         ],
         [
           [
-            "",
-            "",
-            ""
+            "ISP-9310",
+            "IWI-2332",
+            "HAB-3588"
           ],
           [
-            "",
-            "",
+            "GDY-2835",
+            "IKK-2896",
             ""
           ]
         ],
@@ -74,21 +270,21 @@
       "data": [
         [
           [
+            "HFO-8258",
             "",
-            "",
-            ""
+            "IAY-5003"
           ],
           [
             "",
             "",
-            ""
+            "GQS-3160"
           ]
         ],
         [
           [
             "",
-            "",
-            ""
+            "IIA-6373",
+            "GJF-7258"
           ],
           [
             "",
@@ -129,19 +325,19 @@
           [
             "",
             "",
-            ""
+            "FZC-3394"
           ],
           [
             "",
-            "",
-            ""
+            "FLB-7220",
+            "JAX-5980"
           ]
         ],
         [
           [
             "",
-            "",
-            ""
+            "HQG-8016",
+            "IMN-2449"
           ],
           [
             "",

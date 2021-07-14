@@ -8,8 +8,9 @@ const initialState = {
     parkingLots: [],
     parkedCars: [],
     cars: [],
+    toUnpark: {},
     error: null,
-    loading: true
+    loading: true,
 }
 
 const createColumnTemplate = id => {
@@ -80,35 +81,55 @@ export const Provider = ({ children }) => {
     }
 
     const park = async ( payload ) => {
-        debugger;
-        const { plateNumber, size, timeIn} = payload;
-        const plateNumbers = state.parkedCars.map(({ plateNumber }) => plateNumber);
-        const alreadyParked = plateNumbers.includes(plateNumber);
-        let parkingLots;
-
-        const car = {
-            plateNumber,
-            size,
-            timeIn
-        }
+        const { car, wasParked, returningWithinOneHour, columnIndex } = payload;
+        const parkedCar = state.parkedCars.find(car => car.plateNumber === car.plateNumber);
         try {
-            const config = { headers: { 'Content-Type': 'application/json', } }
-            // Update Parking Lots
-            debugger;
-            if (!alreadyParked) {
-                const { revertedLots: parkingLots, currentCol: index } = await mapVehicle(state.parkingLots, payload);
-                const updatedCol = parkingLots[index];
-                await axios.put(`${domain}/parking-lots/${index}`, updatedCol, config);
+            const config = { headers: { 'Content-Type': 'application/json', } };
+            const { columnToUpdate, currentCol } = await mapVehicle(state.parkingLots, car, columnIndex);
+
+            await axios.put(`${domain}/parking-lots/${currentCol}`, columnToUpdate, config);
+
+            if (wasParked) {
+                await axios.put(`${domain}/parked-cars/${car.id}`, car, config);
             }
-            // Update Cars
-            await axios.post(`${domain}/parked-cars/`, car, config);
+            else {
+                await axios.post(`${domain}/parked-cars`, car, config);
+            }
+
             dispatch({
-               type: 'PARK',
-               payload: { 
-                   ...(!alreadyParked && { parkingLots }), 
-                   car, 
-                   alreadyParked }
-            })
+                type: 'PARK',
+                payload: { 
+                    columnToUpdate,
+                    car,
+                }
+             })
+
+
+
+
+
+            // // Update Parking Lots
+            // debugger;
+            // if (!alreadyParked) {
+            //     const { revertedLots, currentCol: index } = await mapVehicle(state.parkingLots, car);
+            //     debugger;
+            //     parkingLots = revertedLots;
+            //     const updatedCol = parkingLots[index];
+            //     if (!car.id) car.id = state.parkedCars.length + 1;
+            //     await axios.put(`${domain}/parking-lots/${index}`, updatedCol, config);
+            //     await axios.patch(`${domain}/parked-cars/`, car, config);
+            // }
+            // else {
+            //     await axios.put(`${domain}/parked-cars/${parkedCar.id}`, car, config)
+            // }
+            // // Update Cars
+            // dispatch({
+            //    type: 'PARK',
+            //    payload: { 
+            //        ...(!alreadyParked && { parkingLots }), 
+            //        car, 
+            //        alreadyParked }
+            // })
         } catch (error) {
             dispatch({
                type: 'ERROR',
@@ -117,12 +138,38 @@ export const Provider = ({ children }) => {
         }
     }
 
-    const unpark = async (car, lotSize) => {
+    const unpark = async (car, lotSize, target) => {
         debugger;
-        const total = calculatTotal(car, lotSize);
+        const { total, hours, days } = calculatTotal(car, lotSize);
         console.log('total: ', total);
+        alert('total: ', total);
+        car.timeOut = + new Date();
+        debugger;
+        const targetColumn = state.parkingLots[target[0]];
+        targetColumn.data[target[1]][target[2]][target[3]] = '';
         try {
+            const config = { headers: { 'Content-Type': 'application/json', } }
             
+            await axios.put(`${domain}/parking-lots/${target[0]}`, targetColumn, config);
+
+            // 
+            await axios.patch(`${domain}/parked-cars/${car.id}`, car, config);
+
+            const toUnpark = {
+                plateNumber: car.plateNumber,
+                total,
+                hours,
+                days,
+            }
+
+            dispatch({
+               type: 'UNPARK',
+               payload: { 
+                    targetColumn,
+                    unparkedCar: car,
+                    toUnpark
+               }
+            })
         } catch (error) {
             
         }
@@ -132,6 +179,22 @@ export const Provider = ({ children }) => {
 
     }
 
+    const clearToUnpark = () => {
+        dispatch({
+            type: 'CLEAR_TO_UNPARK',
+            payload: {}
+        })
+    }
+
+    const toggleLoading = toggle => {
+        dispatch({
+           type: 'TOGGLE_LOADING',
+           payload: { 
+                toggle
+           }
+        })
+    }
+
     return (
         <Context.Provider
             value={{
@@ -139,11 +202,14 @@ export const Provider = ({ children }) => {
                 parkedCars: state.parkedCars,
                 error: state.error,
                 loading: state.loading,
+                toUnpark: state.toUnpark,
                 getParkedCars,
                 getParkingLots,
                 addColumTemplate,
+                toggleLoading,
                 park,
-                unpark
+                unpark,
+                clearToUnpark,
         }}>
             { children }
         </Context.Provider>

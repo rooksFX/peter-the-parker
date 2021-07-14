@@ -2,9 +2,8 @@ import React, { useContext } from 'react'
 import { Context } from '../context/State';
 
 export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
-    const { parkingLots, parkedCars, unpark } = useContext(Context);
+    const { parkingLots, parkedCars, unpark, toggleLoading, loading } = useContext(Context);
     const car = parkedCars.find(car => {
-        if (lot === 'GBJ-7290') debugger;
         return car.plateNumber === lot;
     }) || {};
     const { size } = car;
@@ -14,11 +13,11 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
 
     const submitForUnparking = () => {
         const columnToUpdate = parkingLots[columnIndex].data;
-        debugger;
         console.log('Before unpark: ', columnToUpdate[rowIndex][groupIndex][lotIndex]);
         columnToUpdate[rowIndex][groupIndex][lotIndex] = '';
         console.log('After unpark: ', columnToUpdate[rowIndex][groupIndex][lotIndex]);
-        unpark(car, lotIndex);
+        toggleLoading(true);
+        unpark(car, lotIndex, [columnIndex, rowIndex, groupIndex, lotIndex]);
     }
 
     return (

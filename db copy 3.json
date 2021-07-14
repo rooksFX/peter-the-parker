@@ -1,0 +1,375 @@
+{
+  "parked-cars": [
+    {
+      "plateNumber": "FLQ-6300",
+      "size": "0",
+      "timeIn": 1626170440222,
+      "timeOut": 1626174520886,
+      "id": 1
+    },
+    {
+      "plateNumber": "FKP-9874",
+      "size": "0",
+      "timeIn": 1626170440942,
+      "timeOut": 1626174485997,
+      "id": 2
+    },
+    {
+      "plateNumber": "ISM-2866",
+      "size": "0",
+      "timeIn": 1626170441505,
+      "timeOut": 1626174434664,
+      "id": 3
+    },
+    {
+      "plateNumber": "IBB-8169",
+      "size": "0",
+      "timeIn": 1626170441872,
+      "timeOut": 1626174523496,
+      "id": 4
+    },
+    {
+      "plateNumber": "GKD-4006",
+      "size": "0",
+      "timeIn": 1626170442127,
+      "timeOut": 1626174524381,
+      "id": 5
+    },
+    {
+      "plateNumber": "IPB-3394",
+      "size": "0",
+      "timeIn": 1626170442352,
+      "timeOut": 1626174524914,
+      "id": 6
+    },
+    {
+      "plateNumber": "HJW-0133",
+      "size": "0",
+      "timeIn": 1626170442570,
+      "timeOut": null,
+      "id": 7
+    },
+    {
+      "plateNumber": "ICP-7374",
+      "size": "0",
+      "timeIn": 1626170442809,
+      "timeOut": null,
+      "id": 8
+    },
+    {
+      "plateNumber": "IHZ-8310",
+      "size": "0",
+      "timeIn": 1626170443042,
+      "timeOut": null,
+      "id": 9
+    },
+    {
+      "plateNumber": "FLY-5654",
+      "size": "0",
+      "timeIn": 1626170443244,
+      "timeOut": null,
+      "id": 10
+    },
+    {
+      "plateNumber": "IBN-1106",
+      "size": "0",
+      "timeIn": 1626170443507,
+      "timeOut": null,
+      "id": 11
+    },
+    {
+      "plateNumber": "GIP-1687",
+      "size": "0",
+      "timeIn": 1626170443935,
+      "timeOut": null,
+      "id": 12
+    },
+    {
+      "plateNumber": "HLQ-1188",
+      "size": "0",
+      "timeIn": 1626170444722,
+      "timeOut": null,
+      "id": 13
+    },
+    {
+      "plateNumber": "FRC-5001",
+      "size": "0",
+      "timeIn": 1626170444948,
+      "timeOut": null,
+      "id": 14
+    },
+    {
+      "plateNumber": "FYU-7073",
+      "size": "0",
+      "timeIn": 1626170445187,
+      "timeOut": null,
+      "id": 15
+    },
+    {
+      "plateNumber": "GLO-3424",
+      "size": "0",
+      "timeIn": 1626170445435,
+      "timeOut": null,
+      "id": 16
+    },
+    {
+      "plateNumber": "HPV-7283",
+      "size": "0",
+      "timeIn": 1626170445689,
+      "timeOut": null,
+      "id": 17
+    },
+    {
+      "plateNumber": "FCE-8459",
+      "size": "0",
+      "timeIn": 1626170445937,
+      "timeOut": null,
+      "id": 18
+    },
+    {
+      "plateNumber": "IKV-4951",
+      "size": "0",
+      "timeIn": 1626174554067,
+      "timeOut": null,
+      "id": 19
+    },
+    {
+      "plateNumber": "IRN-1181",
+      "size": "0",
+      "timeIn": 1626174555754,
+      "timeOut": null,
+      "id": 20
+    },
+    {
+      "plateNumber": "FDW-0842",
+      "size": "0",
+      "timeIn": 1626174556346,
+      "timeOut": null,
+      "id": 21
+    },
+    {
+      "plateNumber": "HTT-0569",
+      "size": "0",
+      "timeIn": 1626174556908,
+      "timeOut": null,
+      "id": 22
+    },
+    {
+      "plateNumber": "GQB-5680",
+      "size": "0",
+      "timeIn": 1626174557426,
+      "timeOut": null,
+      "id": 23
+    },
+    {
+      "plateNumber": "HCP-0838",
+      "size": "0",
+      "timeIn": 1626174557936,
+      "timeOut": null,
+      "id": 24
+    },
+    {
+      "plateNumber": "HCK-7467",
+      "size": "0",
+      "timeIn": 1626174558408,
+      "timeOut": null,
+      "id": 25
+    },
+    {
+      "plateNumber": "IWC-3120",
+      "size": "0",
+      "timeIn": 1626174558603,
+      "timeOut": null,
+      "id": 26
+    },
+    {
+      "plateNumber": "IDV-1739",
+      "size": "0",
+      "timeIn": 1626174558821,
+      "timeOut": null,
+      "id": 27
+    },
+    {
+      "plateNumber": "IIH-3169",
+      "size": "0",
+      "timeIn": 1626174559023,
+      "timeOut": null,
+      "id": 28
+    },
+    {
+      "plateNumber": "IMJ-8142",
+      "size": "0",
+      "timeIn": 1626174559376,
+      "timeOut": null,
+      "id": 29
+    },
+    {
+      "plateNumber": "GKJ-0691",
+      "size": "0",
+      "timeIn": 1626174559593,
+      "timeOut": null,
+      "id": 30
+    }
+  ],
+  "parking-lots": [
+    {
+      "id": 0,
+      "data": [
+        [
+          [
+            "IKV-4951",
+            "IRN-1181",
+            "FDW-0842"
+          ],
+          [
+            "HTT-0569",
+            "GQB-5680",
+            "HCP-0838"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "data": [
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "data": [
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    }
+  ]
+}

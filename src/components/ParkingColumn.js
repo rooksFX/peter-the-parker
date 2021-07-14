@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import _ from 'underscore';
 
 import { newYork } from 'license-plate-serial-generator';
 
@@ -28,11 +29,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const ParkingColumn = ({ columnIndex, parkingLot }) => {
     const classes = useStyles();
-    const { park, parkedCars } = useContext(Context);
+    const { park, parkedCars, toggleLoading, loading } = useContext(Context);
+    console.log('parkedCars: ', parkedCars);
     const [plateNumber, setPlateNumber] = useState('');
     const [size, setSize] = useState('0')
-
-    console.log('parkedCars: ', parkedCars);
 
     const onChangePlateNumber = e => {
         const value = e.target.value;
@@ -47,30 +47,94 @@ export const ParkingColumn = ({ columnIndex, parkingLot }) => {
     const onPark = () => {
         debugger;
         if (!plateNumber) return;
-        const plateNumbers = parkedCars.map(({ plateNumber }) => plateNumber);
         const parkedCar = parkedCars.find(car => car.plateNumber === plateNumber);
-        if (parkedCar && !parkedCar.timeOut) {
-            alert('Duplicate Platenumber!');
+
+        if (!_.isEmpty(parkedCar)) {
+            const { timeOut } = parkedCar;
+            if (!timeOut) {
+                // Still parked
+            }
+            else {
+                const { id, size: parkedCarSize, timeIn } = parkedCar;
+                const returningWithinOneHour = isReturningWithinOneHour(parkedCar.timeOut);
+                const carUpdate = {
+                    plateNumber,
+                    id,
+                    size: returningWithinOneHour? parkedCarSize: size,
+                    timeIn: returningWithinOneHour? timeIn: + new Date(),
+                    timeOut: null,
+                }
+                toggleLoading(true);
+                park({
+                    car: carUpdate,
+                    wasParked: true,
+                    returningWithinOneHour,
+                    columnIndex,
+                });
+                generatePlateNumber();
+            }
         }
         else {
-            const timeIn = + new Date();
-            const nagbabalik = isBeyondOneHour(parkedCar.timeOut);
-            park({ 
+            const newCar = {
                 plateNumber,
+                id: parkedCars.length + 1,
                 size,
+                timeIn: + new Date(),
+                timeOut: null,
+            }
+            debugger;
+            toggleLoading(true);
+            park({
+                car: newCar,
+                wasParked: false,
+                returningWithinOneHour: false,
                 columnIndex,
-                timeIn: nagbabalik? parkedCar.timeIn : timeIn,
-                timeOut: null });
+            });
             generatePlateNumber();
         }
+
+        // // If car has already been parked and hasn't left yet
+        // if (parkedCar && !parkedCar.timeOut) {
+        //     alert('Duplicate Platenumber!');
+        // }
+        // // Returning
+        // else if (parkedCar && parkedCar.timeOut) {
+        //     // returning within one hour
+        //     const returningWithinOneHour = isReturningWithinOneHour(parkedCar.timeOut);
+        //     toggleLoading(true);
+        //     const carUpdate = {
+        //         plateNumber,
+        //         id: parkedCar.id,
+        //         size: parkedCar.size,
+        //         columnIndex,
+        //         timeIn: parkedCar.timeIn,
+        //         timeOut: parkedCar.timeOut,
+        //         returningWithinOneHour
+                
+        //     }
+        //     park(carUpdate);
+        // }
+        // else {
+
+        //     const timeIn = + new Date();
+        //     const returning = parkedCar? isReturningWithinOneHour(parkedCar.timeOut) : false;
+        //     park({ 
+        //         plateNumber,
+        //         size: returning? parkedCar.size : size,
+        //         columnIndex,
+        //         timeIn: returning? parkedCar.timeIn : timeIn,
+        //         timeOut: returning? parkedCar.timeOut: null 
+        //     });
+        //     generatePlateNumber();
+        // }
     }
 
-    const isBeyondOneHour = (exit) => {
+    const isReturningWithinOneHour = (exit) => {
         debugger;
         const current = window.overrideDate || + new Date();
         const res = Math.abs(exit - current) / 1000;
         const minutes = Math.floor(res / 60) % 60;    
-        return minutes >= 60;
+        return minutes <= 60;
     }
 
     const generatePlateNumber = () => {
@@ -81,7 +145,7 @@ export const ParkingColumn = ({ columnIndex, parkingLot }) => {
     return (
         <div className="column">
             <div className="rows">
-                {parkingLot.map((row, index) => (<ParkingRow key={index} columnIndex={columnIndex} rowIndex={columnIndex} row={row}/>))}
+                {parkingLot.map((row, index) => (<ParkingRow key={index} columnIndex={columnIndex} rowIndex={index} row={row}/>))}
             </div>
             
             <div className="entry-form">

@@ -3,77 +3,75 @@ const rowFilter = () => {
 
 }
 
-export const mapVehicle = (lots, payload) => {
+export const mapVehicle = (parkingLots, payload, index) => {
     let resolvePromise, rejectPromise;
+
+    // Create promise that can be later resolved when a lot has already been found
     let parkPromise = new Promise((resolve, reject) => {
         resolvePromise = resolve
         rejectPromise = reject
     });
-    const { plateNumber, size, columnIndex: index } = payload;
-    const columnsSize = lots.length;
-    // let currentCol = index;
+
+    const { plateNumber, size } = payload;
+    const columnsSize = parkingLots.length;
+
     let parked = false;
     let lastRows = new Array(columnsSize);
 
-    const sortToLinear = (toSortLots, target) => {
-        // // debugger;
-        var mArray = [toSortLots[target]];
-        var fArray = toSortLots.slice(0, target).reverse();
-        var sArray = toSortLots.slice(target+1, toSortLots.length)
+    // Sort parking lots to linear arrangement
+    const sortToLinear = (toSortParkingLots, target) => {
+        // Get target column
+        var mArray = [toSortParkingLots[target]];
+        // Left side columns
+        var fArray = toSortParkingLots.slice(0, target).reverse();
+        // Right side columns
+        var sArray = toSortParkingLots.slice(target+1, toSortParkingLots.length)
+        // Total length of divided arrays
         var totalLength = mArray.length + fArray.length + sArray.length;
-        // console.log('fArray: ', fArray);
-        // console.log('sArray: ', sArray);
         for (let i = 0; i < totalLength; i ++) {
+            // Adds back the left and right columns to the main array
+            // From [A, B, C, D, E] where C is the selected
+            // To [C, B, D, A, E]
             if (fArray[i]) mArray.push(fArray[i]);
             if (sArray[i]) mArray.push(sArray[i]);
-            // console.log('mArray: ', mArray);
         }
         return mArray;
      };
 
+    // Reverts the parking lots to the orginal arrangement
     const revertLots = (revertedLots, currentCol) => {
-        // console.log('lastRows: ', lastRows);
-        // console.log('revertLots: ', lots);
-        revertedLots.sort((a, b) => a.id - b.id)
-        resolvePromise({revertedLots, currentCol});
+        revertedLots.sort((a, b) => a.id - b.id);
+        const columnToUpdate = revertedLots[currentCol];
+        debugger;
+        resolvePromise({ columnToUpdate, currentCol });
     };
 
-    // console.log('lots, index: ', lots, index);
-    debugger;
-    const sortedLots = sortToLinear([...lots], index);
-    // console.log('sortedLots: ', sortedLots);
+    // Sort parking lots to linear arrangement
+    const sortedLots = sortToLinear([...parkingLots], index);
 
+    // Travese each column
     const verticalSearch = (currentCol) => {
-        console.log('currentCol: ', currentCol);
-        debugger;
-        let col = sortedLots[currentCol].data;
-        for (const rowIndex = lastRows[currentCol]+1 || 0; rowIndex < col.length; rowIndex) {
-        // for (const [rowIndex, row] of col.entries()) {
-            const row = col[rowIndex];
+        const column = sortedLots[currentCol];
+        const { data: colData, id: colId} = column;
+        for (const rowIndex = lastRows[currentCol]+1 || 0; rowIndex < colData.length; rowIndex) {
+            const row = colData[rowIndex];
             if (parked) break;
-            // debugger;
             for (const [groupIndex, group] of row.entries()) {
                 if (parked) break;
-                // debugger;
                 for (let [lotIndex , value] of group.entries()) {
                     if (parked) break;
-                    // debugger;
                     if (lotIndex >= parseInt(size) && !value) {
                         group[lotIndex] = plateNumber;
-                        // console.clear();
                         console.log('LOT FOUND: ', sortedLots[currentCol].data[rowIndex][groupIndex][lotIndex]);
                         console.log(`LOT FOUND LOCATION: ${currentCol}|${rowIndex}|${groupIndex}|${lotIndex}` );
                         parked = true;
-                        revertLots(sortedLots, currentCol);
+                        revertLots(sortedLots, colId);
                         break;
                     }
                     else {
-                        // debugger;
                         if (groupIndex === 1 && lotIndex === 2) {
-                            // debugger;
                             if (lastRows[currentCol] === undefined) {
                                 lastRows[currentCol] = rowIndex;
-                                // debugger;
                                 let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
                                 verticalSearch(nextCol);
                             }
@@ -97,7 +95,7 @@ export const mapVehicle = (lots, payload) => {
 }
 
 const getHoursDifference = (date) => {
-    debugger;
+    // debugger;
     const current = window.overrideDate || + new Date();
     // const difference = date.getTime() - current.getTime();
     // const hoursDifference = Math.floor(difference/1000/60/60);
@@ -125,7 +123,7 @@ const getExceedingHours = (hours) => {
 }
 
 export const isBeyondOneHour = (exit) => {
-    debugger;
+    // debugger;
     const current = window.overrideDate || + new Date();
     const res = Math.abs(exit - current) / 1000;
     const minutes = Math.floor(res / 60) % 60;    
@@ -133,7 +131,7 @@ export const isBeyondOneHour = (exit) => {
 }
 
 export const calculatTotal = (car, size) => {
-    debugger;
+    // debugger;
     let { timeIn: date } = car;
     let total = 40;
     let hourlyRate = getHourlyRate(size);
@@ -147,5 +145,6 @@ export const calculatTotal = (car, size) => {
         total += extension * hourlyRate;
         if (days > 1) total = days * 5000;
     }
-    return total;
+    debugger;
+    return { total, hours, days };
 }

@@ -90,3 +90,39 @@
 }
 
 
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(250, 250, 250, 0.5);
+  z-index: 1;
+
+  .modal {
+    .form {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+
+      .user-field {
+        margin-bottom: 24px;
+      }
+    }
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      .btn-container {
+        button {
+          margin-left: 24px;
+        }
+      }
+    }
+  }
+}
+
+
