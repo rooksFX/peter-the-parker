@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import Reducer from './Reducer';
 import axios from 'axios';
 
-import { mapVehicle, calculatTotal } from '../utils';
+import { mapVehicle, calculateTotal } from '../utils';
 
 const initialState = {
     parkingLots: [],
@@ -140,7 +140,7 @@ export const Provider = ({ children }) => {
 
     const unpark = async (car, lotSize, target) => {
         debugger;
-        const { total, hours, days } = calculatTotal(car, lotSize);
+        const { total, hours, days, hourlyRate } = calculateTotal(car);
         console.log('total: ', total);
         alert('total: ', total);
         car.timeOut = + new Date();
@@ -160,6 +160,7 @@ export const Provider = ({ children }) => {
                 total,
                 hours,
                 days,
+                hourlyRate
             }
 
             dispatch({

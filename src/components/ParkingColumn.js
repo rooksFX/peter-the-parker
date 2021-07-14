@@ -30,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
 export const ParkingColumn = ({ columnIndex, parkingLot }) => {
     const classes = useStyles();
     const { park, parkedCars, toggleLoading, loading } = useContext(Context);
-    console.log('parkedCars: ', parkedCars);
     const [plateNumber, setPlateNumber] = useState('');
     const [size, setSize] = useState('0')
 

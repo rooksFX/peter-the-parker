@@ -95,20 +95,14 @@ export const mapVehicle = (parkingLots, payload, index) => {
 }
 
 const getHoursDifference = (date) => {
-    // debugger;
     const current = window.overrideDate || + new Date();
-    // const difference = date.getTime() - current.getTime();
-    // const hoursDifference = Math.floor(difference/1000/60/60);
-    // difference -= hoursDifference*1000*60*60;
-
     const res = Math.abs(date - current) / 1000;
     const hours = Math.floor(res / 3600) % 24;      
-
-    // const diff = Math.abs(current - date) / 36e5;
     return hours;
 };
 
 const getHourlyRate = (size) => {
+    debugger;
     let hourlyRate = 0;
     hourlyRate = size === 0? 20: size === 1? 60: 100;
     return hourlyRate;
@@ -130,21 +124,21 @@ export const isBeyondOneHour = (exit) => {
     return minutes >= 60;
 }
 
-export const calculatTotal = (car, size) => {
-    // debugger;
+export const calculateTotal = (car) => {
+    debugger;
     let { timeIn: date } = car;
     let total = 40;
-    let hourlyRate = getHourlyRate(size);
+    let hourlyRate = getHourlyRate(car.size);
     let hours = getHoursDifference(date);
     let days = getDays(hours);
     let exceedingHours = getExceedingHours(hours);
     let extension = 0;
-
+    debugger;
     if (hours > 3) { 
         extension = hours - 3;
         total += extension * hourlyRate;
         if (days > 1) total = days * 5000;
     }
     debugger;
-    return { total, hours, days };
+    return { total, hours, days, hourlyRate };
 }

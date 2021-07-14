@@ -21,6 +21,7 @@ export const UnparkModal = ({ toUnpark }) => {
                     Plate Number: { toUnpark.plateNumber } <br />
                     No. of hours: { toUnpark.hours } <br />
                     No. of days: { toUnpark.days } <br />
+                    Hourly rate: { toUnpark.hourlyRate } <br />
                     Total: { toUnpark.total } <br />
                     <Button 
                         variant="contained"

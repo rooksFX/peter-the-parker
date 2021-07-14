@@ -12,6 +12,7 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
     if (lot === 'GBJ-7290') debugger;
 
     const submitForUnparking = () => {
+        if (!lot) return;
         const columnToUpdate = parkingLots[columnIndex].data;
         console.log('Before unpark: ', columnToUpdate[rowIndex][groupIndex][lotIndex]);
         columnToUpdate[rowIndex][groupIndex][lotIndex] = '';
