@@ -1,5 +1,13 @@
 {
   "parked-cars": [
+    {
+      "plateNumber": "GQL-3090",
+      "id": 1,
+      "size": "0",
+      "timeIn": 1626442008279,
+      "ogTimeIn": 1626442008279,
+      "timeOut": 1626442935282
+    }
   ],
   "parking-lots": [
     {

@@ -14,9 +14,7 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
     const submitForUnparking = () => {
         if (!lot) return;
         const columnToUpdate = parkingLots[columnIndex].data;
-        console.log('Before unpark: ', columnToUpdate[rowIndex][groupIndex][lotIndex]);
         columnToUpdate[rowIndex][groupIndex][lotIndex] = '';
-        console.log('After unpark: ', columnToUpdate[rowIndex][groupIndex][lotIndex]);
         toggleLoading(true);
         unpark(car, lotIndex, [columnIndex, rowIndex, groupIndex, lotIndex]);
     }
@@ -26,7 +24,15 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
             <div className={`size-badge ${size? 'occupied': ''}`}>
                 {size && sizeLabel}
             </div>
-            {lot}
+            {lot &&
+                <div className="plate-number-container">
+                    <div className="plate-number">
+                        <h6> - Registered - </h6>
+                        <h4>{lot}</h4>
+                        <h6> - Coruscant - </h6>
+                    </div>
+                </div>
+            }
         </div>
     )
 }

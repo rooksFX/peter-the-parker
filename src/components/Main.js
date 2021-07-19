@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Context } from '../context/State';
 import { ParkingColumn } from './ParkingColumn';
+import { Row } from './Row';
 import { UnparkModal } from './UnparkModal';
 import { Container, 
           Card, 
@@ -42,14 +43,6 @@ export const Main = () => {
         addColumTemplate();
     }
 
-    const handleOpen = () => {
-      setOpen(true);
-    }
-  
-    const handleClose = () => {
-      setOpen(false);
-    }
-
     return (
         <>
             {toUnpark.plateNumber &&
@@ -75,9 +68,14 @@ export const Main = () => {
                             }
                             <div className="columns">
                                 {(parkingLots && parkingLots.length) &&
-                                    parkingLots.map((parkingLot, index) => (<ParkingColumn key={parkingLot.id} columnIndex={parkingLot.id} parkingLot={parkingLot.data} />))
+                                    parkingLots.map((columnParkingLots, index) => (<ParkingColumn key={columnParkingLots.id} columnIndex={columnParkingLots.id} columnParkingLots={columnParkingLots.data} />))
                                 }
                             </div>
+                            {/* <div className="rows">
+                                {(parkingLots && parkingLots.length) &&
+                                    parkingLots.map((row, index) => (<Row key={row.id} rowIndex={row.id} row={row.data} />))
+                                }
+                            </div> */}
                             <Button
                                 variant="contained"
                                 color="primary"

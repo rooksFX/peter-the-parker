@@ -1,0 +1,309 @@
+{
+  "parked-cars": [
+    {
+      "plateNumber": "GNQ-2685",
+      "id": 1,
+      "size": "0",
+      "timeIn": 1626543348440,
+      "ogTimeIn": 1626543348440,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "JBP-9298",
+      "id": 2,
+      "size": "0",
+      "timeIn": 1626543351335,
+      "ogTimeIn": 1626543351335,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HES-8754",
+      "id": 3,
+      "size": "0",
+      "timeIn": 1626543352024,
+      "ogTimeIn": 1626543352024,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GBL-9554",
+      "id": 4,
+      "size": "0",
+      "timeIn": 1626543352587,
+      "ogTimeIn": 1626543352587,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HYJ-2737",
+      "id": 5,
+      "size": "0",
+      "timeIn": 1626543353149,
+      "ogTimeIn": 1626543353149,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GKR-9325",
+      "id": 6,
+      "size": "0",
+      "timeIn": 1626543353592,
+      "ogTimeIn": 1626543353592,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HHE-1789",
+      "id": 7,
+      "size": "0",
+      "timeIn": 1626543354147,
+      "ogTimeIn": 1626543354147,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GBB-3825",
+      "id": 8,
+      "size": "0",
+      "timeIn": 1626543354664,
+      "ogTimeIn": 1626543354664,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FYV-7966",
+      "id": 9,
+      "size": "0",
+      "timeIn": 1626577700100,
+      "ogTimeIn": 1626543366147,
+      "timeOut": 1626577701831
+    },
+    {
+      "plateNumber": "FZF-6381",
+      "id": 10,
+      "size": "0",
+      "timeIn": 1626543367219,
+      "ogTimeIn": 1626543367219,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FJQ-0697",
+      "id": 11,
+      "size": "0",
+      "timeIn": 1626543369814,
+      "ogTimeIn": 1626543369814,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HBA-9165",
+      "id": 12,
+      "size": "0",
+      "timeIn": 1626543370370,
+      "ogTimeIn": 1626543370370,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GUN-0299",
+      "id": 13,
+      "size": "0",
+      "timeIn": 1626543370872,
+      "ogTimeIn": 1626543370872,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HAO-2640",
+      "id": 14,
+      "size": "0",
+      "timeIn": 1626543371457,
+      "ogTimeIn": 1626543371457,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "JAZ-6326",
+      "id": 15,
+      "size": "0",
+      "timeIn": 1626543371945,
+      "ogTimeIn": 1626543371945,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FEW-2264",
+      "id": 16,
+      "size": "0",
+      "timeIn": 1626543372890,
+      "ogTimeIn": 1626543372890,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IFW-1053",
+      "id": 17,
+      "size": "0",
+      "timeIn": 1626543375305,
+      "ogTimeIn": 1626543375305,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FMR-4721",
+      "id": 18,
+      "size": "0",
+      "timeIn": 1626543375927,
+      "ogTimeIn": 1626543375927,
+      "timeOut": null
+    }
+  ],
+  "parking-lots": [
+    {
+      "id": 0,
+      "data": [
+        [
+          [
+            "GNQ-2685",
+            "JBP-9298",
+            "HES-8754"
+          ],
+          [
+            "GBL-9554",
+            "HYJ-2737",
+            "GKR-9325"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 1,
+      "data": [
+        [
+          [
+            "HHE-1789",
+            "GBB-3825",
+            ""
+          ],
+          [
+            "FZF-6381",
+            "FJQ-0697",
+            "HBA-9165"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "data": [
+        [
+          [
+            "GUN-0299",
+            "HAO-2640",
+            "JAZ-6326"
+          ],
+          [
+            "FEW-2264",
+            "IFW-1053",
+            "FMR-4721"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    }
+  ]
+}

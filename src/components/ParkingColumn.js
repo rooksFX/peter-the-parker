@@ -3,6 +3,8 @@ import _ from 'underscore';
 
 import { newYork } from 'license-plate-serial-generator';
 
+import { getMinutesDifference } from '../utils';
+
 import { Context } from '../context/State';
 import { ParkingRow } from './ParkingRow';
 
@@ -27,9 +29,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ParkingColumn = ({ columnIndex, parkingLot }) => {
+export const ParkingColumn = ({ columnIndex, columnParkingLots }) => {
+    // console.log('columnParkingLots: ', columnParkingLots);
     const classes = useStyles();
-    const { park, parkedCars, toggleLoading, loading } = useContext(Context);
+    const { park, parkedCars, deleteColumTemplate, toggleLoading, loading } = useContext(Context);
     const [plateNumber, setPlateNumber] = useState('');
     const [size, setSize] = useState('0')
 
@@ -44,7 +47,8 @@ export const ParkingColumn = ({ columnIndex, parkingLot }) => {
     }
 
     const onPark = () => {
-        debugger;
+        // console.log('onPark: ', columnParkingLots);
+        // debugger;
         if (!plateNumber) return;
         const parkedCar = parkedCars.find(car => car.plateNumber === plateNumber);
 
@@ -54,13 +58,16 @@ export const ParkingColumn = ({ columnIndex, parkingLot }) => {
                 // Still parked
             }
             else {
-                const { id, size: parkedCarSize, timeIn } = parkedCar;
-                const returningWithinOneHour = isReturningWithinOneHour(parkedCar.timeOut);
+                const { id, size: parkedCarSize, timeIn, timeOut } = parkedCar;
+                // const returningWithinOneHour = isReturningWithinOneHour(parkedCar.timeOut);
+                const returningWithinOneHour = getMinutesDifference(+ new Date(), timeOut) < 60;
                 const carUpdate = {
                     plateNumber,
                     id,
                     size: returningWithinOneHour? parkedCarSize: size,
-                    timeIn: returningWithinOneHour? timeIn: + new Date(),
+                    // timeIn: returningWithinOneHour? window.reEntry || timeIn : + new Date(),
+                    timeIn: + new Date(),
+                    ogTimeIn: returningWithinOneHour? parkedCar.ogTimeIn : + new Date(),
                     timeOut: null,
                 }
                 toggleLoading(true);
@@ -78,10 +85,10 @@ export const ParkingColumn = ({ columnIndex, parkingLot }) => {
                 plateNumber,
                 id: parkedCars.length + 1,
                 size,
-                timeIn: + new Date(),
+                timeIn: window.reEntry || + new Date(),
+                ogTimeIn: window.reEntry || + new Date(),
                 timeOut: null,
             }
-            debugger;
             toggleLoading(true);
             park({
                 car: newCar,
@@ -91,60 +98,28 @@ export const ParkingColumn = ({ columnIndex, parkingLot }) => {
             });
             generatePlateNumber();
         }
-
-        // // If car has already been parked and hasn't left yet
-        // if (parkedCar && !parkedCar.timeOut) {
-        //     alert('Duplicate Platenumber!');
-        // }
-        // // Returning
-        // else if (parkedCar && parkedCar.timeOut) {
-        //     // returning within one hour
-        //     const returningWithinOneHour = isReturningWithinOneHour(parkedCar.timeOut);
-        //     toggleLoading(true);
-        //     const carUpdate = {
-        //         plateNumber,
-        //         id: parkedCar.id,
-        //         size: parkedCar.size,
-        //         columnIndex,
-        //         timeIn: parkedCar.timeIn,
-        //         timeOut: parkedCar.timeOut,
-        //         returningWithinOneHour
-                
-        //     }
-        //     park(carUpdate);
-        // }
-        // else {
-
-        //     const timeIn = + new Date();
-        //     const returning = parkedCar? isReturningWithinOneHour(parkedCar.timeOut) : false;
-        //     park({ 
-        //         plateNumber,
-        //         size: returning? parkedCar.size : size,
-        //         columnIndex,
-        //         timeIn: returning? parkedCar.timeIn : timeIn,
-        //         timeOut: returning? parkedCar.timeOut: null 
-        //     });
-        //     generatePlateNumber();
-        // }
-    }
-
-    const isReturningWithinOneHour = (exit) => {
-        debugger;
-        const current = window.overrideDate || + new Date();
-        const res = Math.abs(exit - current) / 1000;
-        const minutes = Math.floor(res / 60) % 60;    
-        return minutes <= 60;
     }
 
     const generatePlateNumber = () => {
+        // debugger;
         const randomPlateNumber = newYork();
         setPlateNumber(randomPlateNumber);
+    }
+
+    const onDeleteColumn = () => {
+        debugger;
+        // console.log('onDeleteColumn: ', columnParkingLots);
+        const lots = columnParkingLots.flat(2).filter(values => values !== '');
+        if (!lots.length) {
+            toggleLoading(true);
+            deleteColumTemplate(columnIndex);
+        }
     }
 
     return (
         <div className="column">
             <div className="rows">
-                {parkingLot.map((row, index) => (<ParkingRow key={index} columnIndex={columnIndex} rowIndex={index} row={row}/>))}
+                {columnParkingLots.map((row, index) => (<ParkingRow key={index} columnIndex={columnIndex} rowIndex={index} row={row}/>))}
             </div>
             
             <div className="entry-form">
@@ -186,6 +161,17 @@ export const ParkingColumn = ({ columnIndex, parkingLot }) => {
                         PARK
                     </Button>
                 </div>
+                { columnIndex > 2 &&
+                    <div className="btn-controls">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={onDeleteColumn}
+                        >
+                            DELETE COLUMN
+                        </Button>
+                    </div>
+                }
             </div>
         </div>
     )

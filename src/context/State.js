@@ -77,60 +77,58 @@ export const Provider = ({ children }) => {
                payload: null
             })
         }
+    }
 
+    const deleteColumTemplate = async columnIndex => {
+        try {
+            await axios.delete(`${domain}/parking-lots/${columnIndex}`);
+            dispatch({
+                type: 'DELETE_COLUMN',
+                payload: columnIndex
+            })
+        } catch (error) {
+            dispatch({
+               type: 'ERROR',
+               payload: null
+            })
+        }
     }
 
     const park = async ( payload ) => {
+        // debugger;
         const { car, wasParked, returningWithinOneHour, columnIndex } = payload;
         const parkedCar = state.parkedCars.find(car => car.plateNumber === car.plateNumber);
         try {
             const config = { headers: { 'Content-Type': 'application/json', } };
             const { columnToUpdate, currentCol } = await mapVehicle(state.parkingLots, car, columnIndex);
-
-            await axios.put(`${domain}/parking-lots/${currentCol}`, columnToUpdate, config);
-
-            if (wasParked) {
-                await axios.put(`${domain}/parked-cars/${car.id}`, car, config);
+            
+            if (columnToUpdate) {
+                await axios.put(`${domain}/parking-lots/${currentCol}`, columnToUpdate, config);
+    
+                if (wasParked) {
+                    await axios.put(`${domain}/parked-cars/${car.id}`, car, config);
+                }
+                else {
+                    await axios.post(`${domain}/parked-cars`, car, config);
+                }
+    
+                dispatch({
+                    type: 'PARK',
+                    payload: { 
+                        columnToUpdate,
+                        car,
+                    }
+                 })
             }
             else {
-                await axios.post(`${domain}/parked-cars`, car, config);
+                dispatch({
+                    type: 'TOGGLE_LOADING',
+                    payload: false
+                })
             }
 
-            dispatch({
-                type: 'PARK',
-                payload: { 
-                    columnToUpdate,
-                    car,
-                }
-             })
-
-
-
-
-
-            // // Update Parking Lots
-            // debugger;
-            // if (!alreadyParked) {
-            //     const { revertedLots, currentCol: index } = await mapVehicle(state.parkingLots, car);
-            //     debugger;
-            //     parkingLots = revertedLots;
-            //     const updatedCol = parkingLots[index];
-            //     if (!car.id) car.id = state.parkedCars.length + 1;
-            //     await axios.put(`${domain}/parking-lots/${index}`, updatedCol, config);
-            //     await axios.patch(`${domain}/parked-cars/`, car, config);
-            // }
-            // else {
-            //     await axios.put(`${domain}/parked-cars/${parkedCar.id}`, car, config)
-            // }
-            // // Update Cars
-            // dispatch({
-            //    type: 'PARK',
-            //    payload: { 
-            //        ...(!alreadyParked && { parkingLots }), 
-            //        car, 
-            //        alreadyParked }
-            // })
         } catch (error) {
+            console.error(error);
             dispatch({
                type: 'ERROR',
                payload: null
@@ -140,11 +138,10 @@ export const Provider = ({ children }) => {
 
     const unpark = async (car, lotSize, target) => {
         debugger;
-        const { total, hours, days, hourlyRate } = calculateTotal(car);
+        const { entryString, exitString,  total, hours, days, hourlyRate } = calculateTotal(car, lotSize);
         console.log('total: ', total);
-        alert('total: ', total);
         car.timeOut = + new Date();
-        debugger;
+        // debugger;
         const targetColumn = state.parkingLots[target[0]];
         targetColumn.data[target[1]][target[2]][target[3]] = '';
         try {
@@ -157,6 +154,8 @@ export const Provider = ({ children }) => {
 
             const toUnpark = {
                 plateNumber: car.plateNumber,
+                entryString, 
+                exitString,
                 total,
                 hours,
                 days,
@@ -207,6 +206,7 @@ export const Provider = ({ children }) => {
                 getParkedCars,
                 getParkingLots,
                 addColumTemplate,
+                deleteColumTemplate,
                 toggleLoading,
                 park,
                 unpark,

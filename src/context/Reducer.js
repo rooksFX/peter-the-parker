@@ -18,6 +18,12 @@ export default (state, action) => {
                 parkingLots: [action.payload, ...state.parkingLots].sort((a, b) => a.id - b.id),
                 loading: false
             }
+        case 'DELETE_COLUMN':
+            return {
+                ...state,
+                parkingLots: state.parkingLots.filter(column => column.id !== action.payload),
+                loading: false
+            }
         case 'PARK':
             const { columnToUpdate, car } = action.payload
 
@@ -57,6 +63,7 @@ export default (state, action) => {
         case 'DELETE_ENTRY':
 
         case 'TOGGLE_LOADING':
+            // console.log('TOGGLE_LOADING: ', action.payload);
             return {
                 ...state,
                 loading: action.payload
