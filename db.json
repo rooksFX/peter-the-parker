@@ -1,11 +1,339 @@
 {
   "parked-cars": [
     {
-      "plateNumber": "HNR-4958",
+      "plateNumber": "GML-3166",
       "id": 1,
       "size": "0",
-      "timeIn": 1626766449782,
-      "ogTimeIn": 1626766449782,
+      "timeIn": 1626789962982,
+      "ogTimeIn": 1626789962982,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IJW-9807",
+      "id": 2,
+      "size": "0",
+      "timeIn": 1626789966500,
+      "ogTimeIn": 1626789966500,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HBS-6677",
+      "id": 3,
+      "size": "0",
+      "timeIn": 1626789966905,
+      "ogTimeIn": 1626789966905,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GBL-3270",
+      "id": 4,
+      "size": "0",
+      "timeIn": 1626789967422,
+      "ogTimeIn": 1626789967422,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GFE-9011",
+      "id": 5,
+      "size": "0",
+      "timeIn": 1626789967910,
+      "ogTimeIn": 1626789967910,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IRM-6232",
+      "id": 6,
+      "size": "0",
+      "timeIn": 1626789968337,
+      "ogTimeIn": 1626789968337,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HXH-4240",
+      "id": 7,
+      "size": "0",
+      "timeIn": 1626789970489,
+      "ogTimeIn": 1626789970489,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GTF-4165",
+      "id": 8,
+      "size": "0",
+      "timeIn": 1626789971157,
+      "ogTimeIn": 1626789971157,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GPR-5222",
+      "id": 9,
+      "size": "0",
+      "timeIn": 1626789971630,
+      "ogTimeIn": 1626789971630,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HAR-7753",
+      "id": 10,
+      "size": "0",
+      "timeIn": 1626789973362,
+      "ogTimeIn": 1626789973362,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GYC-5197",
+      "id": 11,
+      "size": "0",
+      "timeIn": 1626789973827,
+      "ogTimeIn": 1626789973827,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HEQ-6621",
+      "id": 12,
+      "size": "0",
+      "timeIn": 1626789974269,
+      "ogTimeIn": 1626789974269,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FBF-9784",
+      "id": 13,
+      "size": "0",
+      "timeIn": 1626789974787,
+      "ogTimeIn": 1626789974787,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GLA-6265",
+      "id": 14,
+      "size": "0",
+      "timeIn": 1626789975274,
+      "ogTimeIn": 1626789975274,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FOF-2961",
+      "id": 15,
+      "size": "0",
+      "timeIn": 1626789975695,
+      "ogTimeIn": 1626789975695,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FEH-5807",
+      "id": 16,
+      "size": "0",
+      "timeIn": 1626789977390,
+      "ogTimeIn": 1626789977390,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HAI-7796",
+      "id": 17,
+      "size": "0",
+      "timeIn": 1626789977989,
+      "ogTimeIn": 1626789977989,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FZC-0661",
+      "id": 18,
+      "size": "0",
+      "timeIn": 1626789978620,
+      "ogTimeIn": 1626789978620,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FHX-6024",
+      "id": 19,
+      "size": "0",
+      "timeIn": 1626789980037,
+      "ogTimeIn": 1626789980037,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IIN-3875",
+      "id": 20,
+      "size": "0",
+      "timeIn": 1626789981012,
+      "ogTimeIn": 1626789981012,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FQE-1816",
+      "id": 21,
+      "size": "0",
+      "timeIn": 1626789981747,
+      "ogTimeIn": 1626789981747,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HFJ-3517",
+      "id": 22,
+      "size": "0",
+      "timeIn": 1626789987634,
+      "ogTimeIn": 1626789987634,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FRS-4186",
+      "id": 23,
+      "size": "0",
+      "timeIn": 1626789988564,
+      "ogTimeIn": 1626789988564,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FYN-7429",
+      "id": 24,
+      "size": "0",
+      "timeIn": 1626789989202,
+      "ogTimeIn": 1626789989202,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HGU-7491",
+      "id": 25,
+      "size": "0",
+      "timeIn": 1626789991273,
+      "ogTimeIn": 1626789991273,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IUP-7032",
+      "id": 26,
+      "size": "0",
+      "timeIn": 1626789993784,
+      "ogTimeIn": 1626789993784,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GKE-7357",
+      "id": 27,
+      "size": "0",
+      "timeIn": 1626789994197,
+      "ogTimeIn": 1626789994197,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FAX-4281",
+      "id": 28,
+      "size": "0",
+      "timeIn": 1626789996335,
+      "ogTimeIn": 1626789996335,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FEO-3228",
+      "id": 29,
+      "size": "0",
+      "timeIn": 1626789996769,
+      "ogTimeIn": 1626789996769,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "INQ-5419",
+      "id": 30,
+      "size": "0",
+      "timeIn": 1626789997234,
+      "ogTimeIn": 1626789997234,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FZH-7466",
+      "id": 31,
+      "size": "0",
+      "timeIn": 1626790002889,
+      "ogTimeIn": 1626790002889,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FHZ-2859",
+      "id": 32,
+      "size": "0",
+      "timeIn": 1626790004359,
+      "ogTimeIn": 1626790004359,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HYP-7280",
+      "id": 33,
+      "size": "0",
+      "timeIn": 1626790004569,
+      "ogTimeIn": 1626790004569,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "IFV-4534",
+      "id": 34,
+      "size": "0",
+      "timeIn": 1626790007532,
+      "ogTimeIn": 1626790007532,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HKE-8526",
+      "id": 35,
+      "size": "0",
+      "timeIn": 1626790007787,
+      "ogTimeIn": 1626790007787,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GON-2151",
+      "id": 36,
+      "size": "0",
+      "timeIn": 1626790008207,
+      "ogTimeIn": 1626790008207,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "ISS-0425",
+      "id": 37,
+      "size": "0",
+      "timeIn": 1626790026583,
+      "ogTimeIn": 1626790026583,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "JCC-1960",
+      "id": 38,
+      "size": "0",
+      "timeIn": 1626790027197,
+      "ogTimeIn": 1626790027197,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "GSX-1787",
+      "id": 39,
+      "size": "0",
+      "timeIn": 1626790027564,
+      "ogTimeIn": 1626790027564,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "HNN-5863",
+      "id": 40,
+      "size": "0",
+      "timeIn": 1626790029221,
+      "ogTimeIn": 1626790029221,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FAC-3187",
+      "id": 41,
+      "size": "0",
+      "timeIn": 1626790029628,
+      "ogTimeIn": 1626790029628,
+      "timeOut": null
+    },
+    {
+      "plateNumber": "FVO-3029",
+      "id": 42,
+      "size": "0",
+      "timeIn": 1626790030062,
+      "ogTimeIn": 1626790030062,
       "timeOut": null
     }
   ],
@@ -15,14 +343,26 @@
       "data": [
         [
           [
-            "HNR-4958",
-            "",
-            ""
+            "HAR-7753",
+            "GYC-5197",
+            "HEQ-6621"
           ],
           [
-            "",
-            "",
-            ""
+            "HXH-4240",
+            "GTF-4165",
+            "GPR-5222"
+          ]
+        ],
+        [
+          [
+            "FAX-4281",
+            "FEO-3228",
+            "INQ-5419"
+          ],
+          [
+            "HGU-7491",
+            "IUP-7032",
+            "GKE-7357"
           ]
         ],
         [
@@ -56,14 +396,26 @@
       "data": [
         [
           [
-            "",
-            "",
-            ""
+            "GML-3166",
+            "IJW-9807",
+            "HBS-6677"
           ],
           [
-            "",
-            "",
-            ""
+            "GBL-3270",
+            "GFE-9011",
+            "IRM-6232"
+          ]
+        ],
+        [
+          [
+            "FHX-6024",
+            "IIN-3875",
+            "FQE-1816"
+          ],
+          [
+            "HFJ-3517",
+            "FRS-4186",
+            "FYN-7429"
           ]
         ],
         [
@@ -95,6 +447,71 @@
     {
       "id": 2,
       "data": [
+        [
+          [
+            "FBF-9784",
+            "GLA-6265",
+            "FOF-2961"
+          ],
+          [
+            "FEH-5807",
+            "HAI-7796",
+            "FZC-0661"
+          ]
+        ],
+        [
+          [
+            "FZH-7466",
+            "FHZ-2859",
+            "HYP-7280"
+          ],
+          [
+            "IFV-4534",
+            "HKE-8526",
+            "GON-2151"
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ],
+        [
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "data": [
+        [
+          [
+            "ISS-0425",
+            "JCC-1960",
+            "GSX-1787"
+          ],
+          [
+            "HNN-5863",
+            "FAC-3187",
+            "FVO-3029"
+          ]
+        ],
         [
           [
             "",

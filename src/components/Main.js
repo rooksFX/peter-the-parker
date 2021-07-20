@@ -80,7 +80,7 @@ export const Main = () => {
                     </div>
                 </Modal> */}
             {parkingLots.length > 0 &&
-                <Container className="main card" maxWidth="lg">
+                <Container className="main card" maxWidth={false}>
                     <Card>
                         <CardContent>
                             {loading &&
@@ -90,7 +90,7 @@ export const Main = () => {
                             }
                             <div className="columns">
                                 {(parkingLots && parkingLots.length) &&
-                                    parkingLots.map((columnParkingLots, index) => (<ParkingColumn key={columnParkingLots.id} columnIndex={columnParkingLots.id} columnParkingLots={columnParkingLots.data} />))
+                                    parkingLots.map((columnParkingLots, index) => (<ParkingColumn key={columnParkingLots.id} columnIndex={columnParkingLots.id} parkingLotsSize={parkingLots.length} columnParkingLots={columnParkingLots.data} />))
                                 }
                             </div>
                             {/* <div className="rows">

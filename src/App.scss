@@ -1,3 +1,5 @@
+@import './c_app.scss';
+
 * {
   padding: 0;
   margin: 0;
@@ -9,41 +11,41 @@ button {
 }
 
 .main {
-  padding: 24px
+  padding: $large-spacing
 }
 
 .plate-number-container {
   max-width: 200px;
-  padding: 6px;
-  margin: 6px;
+  padding: $xsmall-spacing;
+  margin: $xsmall-spacing;
   background-color: #ffe22e;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px 2px hsl(0, 0%, 10%);
+  border-radius: $default-border-radius;
+  box-shadow: $default-shadow;
   min-width: 40%;
   height: fit-content;
 
   .plate-number {
-    padding: 6px;
-    border-radius: 4px;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+    padding: $xsmall-spacing;
+    border-radius: $default-border-radius;
+    border-top: $thick-border;
+    border-bottom: $thick-border;
     text-align: center;
   }
 }
 
 .unpark {
   display: flex;
-  width: 100%;
+  width: $full-span;
 
   .details {
     flex-grow: 2;
 
     .details-row {
       display: flex;
-      margin-bottom: 6px;
+      margin-bottom: $xsmall-spacing;
 
       div {
-        padding: 0 6px;
+        padding: 0 $xsmall-spacing;
       }
 
       .details-label {
@@ -58,7 +60,7 @@ button {
 }
 
 .override {
-  padding: 24px 0;
+  padding: $large-spacing 0;
   display: flex;
   justify-content: space-evenly;
 }
@@ -66,7 +68,7 @@ button {
 .btn-controls {
   display: flex;
   justify-content: flex-end;
-  padding: 6px 0;
+  padding: $xsmall-spacing 0;
 }
 
 // .rows {
@@ -76,7 +78,7 @@ button {
 
 //   .row {
 //     display: flex;
-//     width: 100%;
+//     width: $full-span;
 //     // height: 250px;
 //     border: 1px solid red;
 //   }
@@ -95,7 +97,7 @@ button {
 //     flex-direction: column-reverse;
 
 //     .lot {
-//       width: 100%;
+//       width: $full-span;
 //       height: 140px;
 //       border: 1px solid red;
 //     }
@@ -108,18 +110,34 @@ button {
 
   .column {
     flex-grow: 1;
-    min-width: 33.33%;
+    min-width: $third-span;
     // border: 1px solid red;
 
     .entry-form {
-      padding: 6px;
-      border: 1px solid #ccc;
-      margin: 6px;
-      border-radius: 5px;
+      padding: $xsmall-spacing;
+      border: $border;
+      margin: $xsmall-spacing;
+      border-radius: $default-border-radius;
+
+      .car-details {
+        display: flex;
+        width: $full-span;
+        justify-content: space-between;
+
+        .btn-random {
+          height: 54px;
+          margin-right: $small-spacing;
+        }
+
+        .plate-number {
+          flex-grow: 2;
+          margin-right: $small-spacing;
+        }
+      }
 
       .btn-controls {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
       }
     }
 
@@ -132,36 +150,62 @@ button {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      margin-bottom: 76px;
+      margin-bottom: 7$xsmall-spacing;
       border-top: 1px dashed red;
       border-bottom: 1px solid #ccc;
+      margin-bottom: 100px;
+
+      &:last-child {
+        margin-bottom: 80px;
+      }
 
       .group {
-        width: 40%;
+        width: 30%;
         display: flex;
         flex-direction: column-reverse;
 
         .lot {
-          margin: 6px;
-          padding: 6px;
+          margin: $xsmall-spacing;
+          padding: $xsmall-spacing;
           // border: 1px solid #ccc;
-          border-radius: 5px;
-          height: 150px;
+          border-radius: $default-border-radius;
+          height: 170px;
           cursor: pointer;
           &:hover {
-            box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+            box-shadow: $shadow-hover;
+            transform: translate(-2px,-2px);
 
             .plate-number-container {
-              box-shadow: 0px 0px 5px 1px hsl(0, 0%, 10%);
+              box-shadow: $shadow-hover;
+            }
+          }
+
+          .lot-header {
+            display: flex;
+            justify-content: space-between;
+          }
+
+          .parking-details {
+            .parking-details-row {
+              display: flex;
+              .label {
+                width: 35%;
+                display: flex;
+                justify-content: flex-end;
+              }
+              .value {
+                padding-left: $xsmall-spacing;
+                width: 65%;
+              }
             }
           }
 
           .size-badge {
-            padding: 5px;
-            border-radius: 50%;
+            padding: $xsmall-spacing;
+            border-radius: $half-span;
             background-color: #fff;
-            width: 25px;
-            height: 25px;
+            width: $large-spacing;
+            height: $large-spacing;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -194,19 +238,19 @@ button {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100vh;
+  width: $full-span;
+  height: $full-viewport-height;
   background-color: rgba(250, 250, 250, 0.5);
   z-index: 2;
 
   .modal {
     .form {
-      padding: 24px;
+      padding: $large-spacing;
       display: flex;
       flex-direction: column;
 
       .user-field {
-        margin-bottom: 24px;
+        margin-bottom: $large-spacing;
       }
     }
     .footer {
@@ -214,7 +258,7 @@ button {
       justify-content: flex-end;
       .btn-container {
         button {
-          margin-left: 24px;
+          margin-left: $large-spacing;
         }
       }
     }

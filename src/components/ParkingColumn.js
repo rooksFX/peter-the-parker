@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ParkingColumn = ({ columnIndex, columnParkingLots }) => {
+export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots }) => {
     // console.log('columnParkingLots: ', columnParkingLots);
     const classes = useStyles();
     const { park, parkedCars, deleteColumTemplate, toggleLoading, loading } = useContext(Context);
@@ -123,36 +123,39 @@ export const ParkingColumn = ({ columnIndex, columnParkingLots }) => {
             </div>
             
             <div className="entry-form">
-                <TextField 
-                    className="plate-number"
-                    id="outlined-basic"
-                    label="Plate Number"
-                    name="plate_number"
-                    variant="outlined"
-                    value={plateNumber}
-                    onChange={onChangePlateNumber}
-                />
-                <FormControl className={classes.formControl}>
-                    <InputLabel id="label-size">Size</InputLabel>
-                    <Select
-                        labelId="label-size"
-                        id="size-selector"
-                        value={size}
-                        onChange={onChangeSize}
-                    >
-                        <MenuItem value="0">Small</MenuItem>
-                        <MenuItem value="1">Medium</MenuItem>
-                        <MenuItem value="2">Large</MenuItem>
-                    </Select>
-                </FormControl>
-                <div className="btn-controls">
+                <div className="car-details">
                     <Button
+                        className="btn-random"
                         variant="contained"
                         color="secondary"
                         onClick={generatePlateNumber}
                     >
                         <RandomizeIcon/>
                     </Button>
+                    <TextField 
+                        className="plate-number"
+                        id="outlined-basic"
+                        label="Plate Number"
+                        name="plate_number"
+                        variant="outlined"
+                        value={plateNumber}
+                        onChange={onChangePlateNumber}
+                    />
+                    <FormControl className={classes.formControl}>
+                        <InputLabel id="label-size">Size</InputLabel>
+                        <Select
+                            labelId="label-size"
+                            id="size-selector"
+                            value={size}
+                            onChange={onChangeSize}
+                        >
+                            <MenuItem value="0">Small</MenuItem>
+                            <MenuItem value="1">Medium</MenuItem>
+                            <MenuItem value="2">Large</MenuItem>
+                        </Select>
+                    </FormControl>
+                </div>
+                <div className="btn-controls">
                     <Button
                         variant="contained"
                         color="primary"
@@ -161,7 +164,9 @@ export const ParkingColumn = ({ columnIndex, columnParkingLots }) => {
                         PARK
                     </Button>
                 </div>
-                { columnIndex > 2 &&
+                { (columnIndex > 2
+                    && columnIndex === parkingLotsSize - 1
+                    ) &&
                     <div className="btn-controls">
                         <Button
                             variant="contained"

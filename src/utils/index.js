@@ -1,4 +1,4 @@
-export const mapVehicle = (parkingLots, payload, targetColumn) => {
+export const mapVehicle = (parkingLots, payload, entryPoint) => {
     let resolvePromise, rejectPromise;
 
     // Create promise that can be later resolved when a lot has already been found
@@ -13,7 +13,6 @@ export const mapVehicle = (parkingLots, payload, targetColumn) => {
     let parked = false;
     let lastRows = new Array(columnsSize);
     let lastColumns = new Array(4);
-    let prevCol = 0;
 
     // Sort parking lots to linear arrangement
     const sortToLinear = (toSortParkingLots, target) => {
@@ -37,130 +36,125 @@ export const mapVehicle = (parkingLots, payload, targetColumn) => {
 
     // Reverts the parking lots to the orginal arrangement
     const revertLots = (revertedLots, currentCol) => {
-        debugger;
         revertedLots.sort((a, b) => a.id - b.id);
         const columnToUpdate = revertedLots[currentCol];
         resolvePromise({ columnToUpdate, currentCol });
     };
 
     // Sort parking lots to linear arrangement
-    const sortedLots = sortToLinear([...parkingLots], targetColumn);
+    const sortedLots = sortToLinear([...parkingLots], entryPoint);
 
-    // const stairCaseTraverse = (col, row) => {
-    //     console.log('traverse: ', col, row);
-    //     const yLimit = row+col+1;
-    //     const xLimit = col;
-    //     let y = col;
-    //     let x = row;
-    //     console.log('yLimit: ', yLimit);
-    //     while (y < yLimit && y < sortedLots.length && x < 3 && !parked) {
-    //         console.log('y: ', y, 'x: ', x);
-
-    //         for (let g = 0; g < 2; g++) {
-    //             if (parked) break;
-    //             for (let l = 0; l < 3; l++) {
-    //                 if (parked) break;
-    //                 const lot  = sortedLots[y].data[x][g][l];
-    //                 if (l >= parseInt(size) && !lot) {
-    //                     debugger;
-    //                     sortedLots[y].data[x][g][l] = plateNumber;
-    //                     parked = true;
-    //                     revertLots(sortedLots, y);
-    //                     break;
-    //                 }
-    //             }
-    //         }
-
-    //         // if (!test[y][x]) {
-    //         //     test[y][x] = `${y}|${x}`;
-    //         //     return test;
-    //         // }
-
-    //         y++;
-    //         x--;
-    //     }
-    //     console.log('update: ', sortedLots);
-    
-    //     debugger;
-    //     if (col < sortedLots.length && !parked) {
-    //         col = row === 2? col+1: 0;
-    //         row = row === 2? row: row+1;
-    //         stairCaseTraverse(col, row);
-    //     }
-    //     else {
-    //         // revertLots(null, null);
-    //         // resolvePromise({ columnToUpdate: null, currentCol: null });
-    //     }
-
-    // }
-
-    // Travese each column
-    
-    const traverseParkingLots = (currentCol) => {
-        // debugger;
-        const column = sortedLots[currentCol];
-        const { data: colData, id: colId} = column;
-        for (const rowIndex = lastRows[currentCol]+1 || 0; rowIndex < colData.length; rowIndex) {
-            const row = colData[rowIndex];
-            debugger;
+    const search = () => {
+        debugger;
+        for (let level = 0; level < 4; level++) {
             if (parked) break;
-            for (const [groupIndex, group] of row.entries()) {
-                debugger;
+            for (let colIndex = 0; colIndex < sortedLots.length; colIndex++) {
                 if (parked) break;
-                for (let [lotIndex, value] of group.entries()) {
-                    debugger;
+                // Current column
+                const column = sortedLots[colIndex];
+                const { id, data } = column;
+                // Directly extract row
+                const isLeftSide = id < entryPoint;
+                const rows = data[level];
+                for (let groupIndex = isLeftSide? 1: 0; 
+                    isLeftSide? groupIndex >= 0 :groupIndex < rows.length; 
+                    isLeftSide? groupIndex--: groupIndex++) {
                     if (parked) break;
-                    if (lotIndex >= parseInt(size) && !value) {
-                        group[lotIndex] = plateNumber;
-                        // console.log('LOT FOUND: ', sortedLots[currentCol].data[rowIndex][groupIndex][lotIndex]);
-                        // console.log(`LOT FOUND LOCATION: ${currentCol}|${rowIndex}|${groupIndex}|${lotIndex}` );
-                        parked = true;
-                        revertLots(sortedLots, colId);
-                        break;
-                    }
-                    else {
-                        if (groupIndex === 1 && lotIndex === 2) {
-                            if (lastRows[currentCol] === undefined) {
-                                if (lastColumns[rowIndex] === undefined) lastColumns[rowIndex] = currentCol;
-                                lastRows[currentCol] = rowIndex;
-                                // left to right columns algo
-                                // - Save record of the previous column that is not 0?
-                                // - List of columns?
-                                let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
-                                // let nextCol = currentCol === 0? currentCol < columnsSize? prevCol + 1: 0 : 0;
-                                // if (currentCol === columnsSize - 1) prevCol = 0;
-                                // if (nextCol > 0) prevCol = nextCol;
-                                // if (nextCol !== targetColumn) lastRows[nextCol] = lastRows[nextCol] + 1;
-                                // debugger;
-                                traverseParkingLots(nextCol);
-                            }
-                            else {
-                                if (lastRows[currentCol] < rowIndex) {
-                                    lastRows[currentCol] = rowIndex;
-                                    let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
-                                    traverseParkingLots(nextCol);
-                                }
-                            }
+                    const group = rows[groupIndex];
+        
+                    for (let lotIndex = 0; lotIndex < group.length; lotIndex++) {
+                        if (parked) break;
+                        // const lot = group[lotIndex];
+                        if (lotIndex >= parseInt(size) && !group[lotIndex]) {
+                            group[lotIndex] = plateNumber;
+                            parked = true;
+                            // console.log('colId: ', colId, 'entryPoint: ', entryPoint);
+                            revertLots(sortedLots, id);
+                            break;
                         }
-                        if (currentCol === columnsSize -1
-                            && rowIndex === colData.length - 1
-                            && groupIndex === row.length -1
-                            && lotIndex === group.length -1) {
-                                debugger;
-                                console.log('End of the list');
-                                resolvePromise({ columnToUpdate: null, currentCol: null });
-                                parked = true;
-                                break;
-                            }
                     }
+            
                 }
             }
         }
-    };
+        if (!parked) resolvePromise({ columnToUpdate: null, currentCol: null });   
+    }
 
-    // traverse(0, 0, 0, 0);
-    traverseParkingLots(0);
-    // stairCaseTraverse(0, 0);
+    // const traverseParkingLots = (currentCol) => {
+    //     console.log('traverseParkingLots: ', currentCol );
+    //     const column = sortedLots[currentCol];
+    //     const { data: colData, id: colId} = column;
+    //     for (const rowIndex = lastRows[currentCol]+1 || 0; rowIndex < colData.length; rowIndex) {
+    //         const row = colData[rowIndex];
+    //         if (parked) break;
+    //         // if (currentCol < entryPoint) {
+
+    //         // }
+    //         const isLeftSide = colId < entryPoint? true: false;
+    //         console.log('isLeftSide: ', isLeftSide, colId, entryPoint);
+    //         // for (let groupIndex = 0; groupIndex < row.length; groupIndex++) {
+    //         // for (let groupIndex = 1; groupIndex >= 0; groupIndex--) {
+    //         const groupCondition = groupIndex => {
+    //             if (isLeftSide) return groupIndex < row.length;
+    //             return groupIndex >= 0;
+    //         }
+
+    //         const groupIterator = groupIndex => {
+    //             if (isLeftSide) return groupIndex--;
+    //             return groupIndex++;
+    //         }
+            
+    //         debugger;
+
+    //         for (let groupIndex = isLeftSide? 1:0; 
+    //             groupCondition(groupIndex); 
+    //             isLeftSide? groupIndex--: groupIndex++) {
+    //             const group = row[groupIndex];
+    //         // for (const [groupIndex, group] of row.entries()) {
+    //             if (parked) break;
+    //             for (let [lotIndex, value] of group.entries()) {
+    //                 if (parked) break;
+
+    //                 if (lotIndex >= parseInt(size) && !value) {
+    //                     group[lotIndex] = plateNumber;
+    //                     parked = true;
+    //                     console.log('colId: ', colId, 'entryPoint: ', entryPoint);
+    //                     revertLots(sortedLots, colId);
+    //                     break;
+    //                 }
+    //                 else {
+    //                     if (groupIndex === isLeftSide? 0: 1 && lotIndex === 2) {
+    //                         if (lastRows[currentCol] === undefined) {
+    //                             if (lastColumns[rowIndex] === undefined) lastColumns[rowIndex] = currentCol;
+    //                             lastRows[currentCol] = rowIndex;
+    //                             let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
+    //                             traverseParkingLots(nextCol);
+    //                         }
+    //                         else {
+    //                             if (lastRows[currentCol] < rowIndex) {
+    //                                 lastRows[currentCol] = rowIndex;
+    //                                 let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
+    //                                 traverseParkingLots(nextCol);
+    //                             }
+    //                         }
+    //                     }
+    //                     if (currentCol === columnsSize -1
+    //                         && rowIndex === colData.length - 1
+    //                         && groupIndex === row.length -1
+    //                         && lotIndex === group.length -1) {
+    //                             console.log('End of the list');
+    //                             resolvePromise({ columnToUpdate: null, currentCol: null });
+    //                             parked = true;
+    //                             break;
+    //                         }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // };
+    // traverseParkingLots(0);
+
+    search();
 
     return parkPromise;
 }
@@ -180,10 +174,6 @@ const getHourlyRate = (size) => {
 
 const getDays = (hours) => {
     return parseInt(hours / 24);
-}
-
-const getExceedingHours = (hours) => {
-    return hours % 24;
 }
 
 export const isBeyondOneHour = (exit) => {
@@ -214,9 +204,7 @@ export const calculateTotal = (car, lotSize) => {
     console.log('returningWithinOneHour: ', returningWithinOneHour);
     let hours = getHoursDifference(currentTimestamp, returningWithinOneHour? timeIn: ogTimeIn);
     let days = getDays(hours);
-    let exceedingHours = getExceedingHours(hours);
     let extension = 0;
-    debugger;
     if (hours > 3) { 
         if (returningWithinOneHour) {
             total += hours * hourlyRate;
@@ -236,7 +224,6 @@ export const calculateTotal = (car, lotSize) => {
             total = 40;
         }
     }
-    debugger;
 
     const entryString = returningWithinOneHour? new Date(timeIn).toLocaleString(): new Date(ogTimeIn).toLocaleString();
     const exitString = new Date(currentTimestamp).toLocaleString();

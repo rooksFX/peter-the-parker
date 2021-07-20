@@ -139,17 +139,13 @@ export const Provider = ({ children }) => {
     const unpark = async (car, lotSize, target) => {
         debugger;
         const { entryString, exitString,  total, hours, days, hourlyRate } = calculateTotal(car, lotSize);
-        console.log('total: ', total);
         car.timeOut = + new Date();
-        // debugger;
         const targetColumn = state.parkingLots[target[0]];
         targetColumn.data[target[1]][target[2]][target[3]] = '';
         try {
             const config = { headers: { 'Content-Type': 'application/json', } }
             
             await axios.put(`${domain}/parking-lots/${target[0]}`, targetColumn, config);
-
-            // 
             await axios.patch(`${domain}/parked-cars/${car.id}`, car, config);
 
             const toUnpark = {
