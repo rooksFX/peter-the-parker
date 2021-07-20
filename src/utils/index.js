@@ -46,56 +46,57 @@ export const mapVehicle = (parkingLots, payload, targetColumn) => {
     // Sort parking lots to linear arrangement
     const sortedLots = sortToLinear([...parkingLots], targetColumn);
 
-    const stairCaseTraverse = (col, row) => {
-        console.log('traverse: ', col, row);
-        const yLimit = row+col+1;
-        const xLimit = col;
-        let y = col;
-        let x = row;
-        console.log('yLimit: ', yLimit);
-        while (y < yLimit && y < sortedLots.length && x < 3 && !parked) {
-            console.log('y: ', y, 'x: ', x);
+    // const stairCaseTraverse = (col, row) => {
+    //     console.log('traverse: ', col, row);
+    //     const yLimit = row+col+1;
+    //     const xLimit = col;
+    //     let y = col;
+    //     let x = row;
+    //     console.log('yLimit: ', yLimit);
+    //     while (y < yLimit && y < sortedLots.length && x < 3 && !parked) {
+    //         console.log('y: ', y, 'x: ', x);
 
-            for (let g = 0; g < 2; g++) {
-                if (parked) break;
-                for (let l = 0; l < 3; l++) {
-                    if (parked) break;
-                    const lot  = sortedLots[y].data[x][g][l];
-                    if (l >= parseInt(size) && !lot) {
-                        debugger;
-                        sortedLots[y].data[x][g][l] = plateNumber;
-                        parked = true;
-                        revertLots(sortedLots, y);
-                        break;
-                    }
-                }
-            }
+    //         for (let g = 0; g < 2; g++) {
+    //             if (parked) break;
+    //             for (let l = 0; l < 3; l++) {
+    //                 if (parked) break;
+    //                 const lot  = sortedLots[y].data[x][g][l];
+    //                 if (l >= parseInt(size) && !lot) {
+    //                     debugger;
+    //                     sortedLots[y].data[x][g][l] = plateNumber;
+    //                     parked = true;
+    //                     revertLots(sortedLots, y);
+    //                     break;
+    //                 }
+    //             }
+    //         }
 
-            // if (!test[y][x]) {
-            //     test[y][x] = `${y}|${x}`;
-            //     return test;
-            // }
+    //         // if (!test[y][x]) {
+    //         //     test[y][x] = `${y}|${x}`;
+    //         //     return test;
+    //         // }
 
-            y++;
-            x--;
-        }
-        console.log('update: ', sortedLots);
+    //         y++;
+    //         x--;
+    //     }
+    //     console.log('update: ', sortedLots);
     
-        debugger;
-        if (col < sortedLots.length && !parked) {
-            col = row === 2? col+1: 0;
-            row = row === 2? row: row+1;
-            stairCaseTraverse(col, row);
-        }
-        else {
-            // revertLots(null, null);
-            // resolvePromise({ columnToUpdate: null, currentCol: null });
-        }
+    //     debugger;
+    //     if (col < sortedLots.length && !parked) {
+    //         col = row === 2? col+1: 0;
+    //         row = row === 2? row: row+1;
+    //         stairCaseTraverse(col, row);
+    //     }
+    //     else {
+    //         // revertLots(null, null);
+    //         // resolvePromise({ columnToUpdate: null, currentCol: null });
+    //     }
 
-    }
+    // }
 
     // Travese each column
-    const verticalSearch = (currentCol) => {
+    
+    const traverseParkingLots = (currentCol) => {
         // debugger;
         const column = sortedLots[currentCol];
         const { data: colData, id: colId} = column;
@@ -131,13 +132,13 @@ export const mapVehicle = (parkingLots, payload, targetColumn) => {
                                 // if (nextCol > 0) prevCol = nextCol;
                                 // if (nextCol !== targetColumn) lastRows[nextCol] = lastRows[nextCol] + 1;
                                 // debugger;
-                                verticalSearch(nextCol);
+                                traverseParkingLots(nextCol);
                             }
                             else {
                                 if (lastRows[currentCol] < rowIndex) {
                                     lastRows[currentCol] = rowIndex;
                                     let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
-                                    verticalSearch(nextCol);
+                                    traverseParkingLots(nextCol);
                                 }
                             }
                         }
@@ -158,7 +159,7 @@ export const mapVehicle = (parkingLots, payload, targetColumn) => {
     };
 
     // traverse(0, 0, 0, 0);
-    verticalSearch(0);
+    traverseParkingLots(0);
     // stairCaseTraverse(0, 0);
 
     return parkPromise;
@@ -210,6 +211,7 @@ export const calculateTotal = (car, lotSize) => {
     let total = 0;
     let hourlyRate = getHourlyRate(lotSize);
     let returningWithinOneHour = ogTimeIn !== timeIn;
+    console.log('returningWithinOneHour: ', returningWithinOneHour);
     let hours = getHoursDifference(currentTimestamp, returningWithinOneHour? timeIn: ogTimeIn);
     let days = getDays(hours);
     let exceedingHours = getExceedingHours(hours);

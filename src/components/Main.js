@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Context } from '../context/State';
 import { ParkingColumn } from './ParkingColumn';
+import { Entry } from './Entry';
 import { Row } from './Row';
 import { UnparkModal } from './UnparkModal';
 import { Container, 
@@ -9,7 +10,7 @@ import { Container,
           Button, 
           CircularProgress, 
           Backdrop, 
-          Modal
+          TextField
         } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
 export const Main = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const [entry, setEntry] = useState('');
+    const [exit, setExit] = useState('');
+    const [reentry, setReentry] = useState('');
     const { getParkedCars, getParkingLots, addColumTemplate, toggleLoading, loading, toUnpark, parkingLots } = useContext(Context);
     useEffect(() => {
         toggleLoading(true);
@@ -41,6 +45,24 @@ export const Main = () => {
     const onAddColumn = () => {
         toggleLoading(true);
         addColumTemplate();
+    }
+
+    const onChangeEntry = e => {
+        const value = e.target.value;
+        window.entry = value;
+        setEntry(value);
+    }
+
+    const onChangeExit = e => {
+        const value = e.target.value;
+        window.exit = value;
+        setExit(value);
+    }
+
+    const onChangeReentry = e => {
+        const value = e.target.value;
+        window.reEntry = value;
+        setReentry(value);
     }
 
     return (
@@ -75,6 +97,11 @@ export const Main = () => {
                                 {(parkingLots && parkingLots.length) &&
                                     parkingLots.map((row, index) => (<Row key={row.id} rowIndex={row.id} row={row.data} />))
                                 }
+                            </div>
+                            <div className="columns">
+                                {(parkingLots && parkingLots.length) &&
+                                    parkingLots[0].data.map((column, index) => (<Entry key={column.id} columnIndex={column.id} column={column.data} />))
+                                }
                             </div> */}
                             <Button
                                 variant="contained"
@@ -83,6 +110,36 @@ export const Main = () => {
                             >
                                 ADD COLUMN/ENTRY
                             </Button>
+
+                            {/* <div className="override">
+                                <TextField 
+                                    className="plate-number"
+                                    id="outlined-basic"
+                                    label="Override Entry"
+                                    name="plate_number"
+                                    variant="outlined"
+                                    value={entry}
+                                    onChange={onChangeEntry}
+                                />
+                                <TextField 
+                                    className="plate-number"
+                                    id="outlined-basic"
+                                    label="Override Exit"
+                                    name="plate_number"
+                                    variant="outlined"
+                                    value={exit}
+                                    onChange={onChangeExit}
+                                />
+                                <TextField 
+                                    className="plate-number"
+                                    id="outlined-basic"
+                                    label="Override Reentry"
+                                    name="plate_number"
+                                    variant="outlined"
+                                    value={reentry}
+                                    onChange={onChangeReentry}
+                                />
+                            </div> */}
                         </CardContent>
                     </Card>
                 </Container>

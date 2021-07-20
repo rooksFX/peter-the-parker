@@ -66,7 +66,7 @@ export const ParkingColumn = ({ columnIndex, columnParkingLots }) => {
                     id,
                     size: returningWithinOneHour? parkedCarSize: size,
                     // timeIn: returningWithinOneHour? window.reEntry || timeIn : + new Date(),
-                    timeIn: + new Date(),
+                    timeIn: window.reEntry  || + new Date(),
                     ogTimeIn: returningWithinOneHour? parkedCar.ogTimeIn : + new Date(),
                     timeOut: null,
                 }

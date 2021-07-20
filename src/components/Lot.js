@@ -21,6 +21,7 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
 
     return (
         <div className={`lot lot-${lotIndex}`} onClick={submitForUnparking}>
+            {rowIndex} | {columnIndex} | {groupIndex} | {lotIndex}
             <div className={`size-badge ${size? 'occupied': ''}`}>
                 {size && sizeLabel}
             </div>
