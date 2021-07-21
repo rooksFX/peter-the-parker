@@ -9,8 +9,9 @@ $default-border-radius: 5px !default;
 $full-border-radius: 50% !default;
 
 $default-shadow: 0px 0px 10px 2px hsl(0, 0%, 10%) !default;
+$light-shadow: 0px 0px 20px 5px hsl(0, 0%, 10%) !default;
 
-$shadow-hover: 0px 0px 5px 1px hsl(0, 0%, 10%) !default; 
+$shadow-hover: 0px 0px 5px 1px hsl(0, 0%, 5%) !default; 
 
 $full-span: 100% !default;
 $half-span: 50% !default;
@@ -28,3 +29,5 @@ $transition-ease: all ease 250ms !default;
 $primary-color: hsl(231, 48%, 48%) !default;
 $secondary-color: hsl(339, 100%, 48%) !default;
 $light-color: hsl(100%, 100%, 100%) !default;
+
+$error-color: hsl(0, 100%, 60%) !default;

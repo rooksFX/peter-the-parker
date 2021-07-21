@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Context } from '../context/State';
 
 import { Container,
@@ -10,9 +10,7 @@ import { Container,
 
 export const UnparkModal = ({ toUnpark }) => {
     const { clearToUnpark } = useContext(Context);
-    useEffect(() => {
-        // setTimeout(() => clearToUnpark(), 5000);
-    }, [])
+
     return (
         <Container className="modal" maxWidth="sm">
             <Card>
@@ -78,17 +76,17 @@ export const UnparkModal = ({ toUnpark }) => {
                                 </div>
                                 <div className="details-value">
                                     <h4>
-                                        { toUnpark.hourlyRate }
+                                        P{ toUnpark.hourlyRate }
                                     </h4>
                                 </div>
                             </div>
-                            <div className="details-row">
+                            <div className="details-row total">
                                 <div className="details-label">
                                     Total:
                                 </div>
                                 <div className="details-value">
                                     <h4>
-                                        { toUnpark.total }
+                                        P{ toUnpark.total }
                                     </h4>
                                 </div>
                             </div>
@@ -104,7 +102,7 @@ export const UnparkModal = ({ toUnpark }) => {
                         </Button>
                     </div>
                 </CardContent>
-            </Card>`
+            </Card>
         </Container>
     )
 }

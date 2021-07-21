@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Context } from '../context/State';
 import { ParkingColumn } from './ParkingColumn';
-import { Entry } from './Entry';
-import { Row } from './Row';
 import { UnparkModal } from './UnparkModal';
+import { ErrorModal } from './ErrorModal';
 import { Container, 
           Card, 
           CardContent, 
           Button, 
           CircularProgress, 
-          Backdrop, 
-          TextField,
-          Switch
+          Backdrop
         } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -36,10 +33,10 @@ export const Main = () => {
         entry: '',
         exit: '',
         reEntry: '',
-    })
-    const { getParkedCars, getParkingLots, addColumTemplate, toggleLoading, loading, toUnpark, parkingLots } = useContext(Context);
+    });
+    const { getParkedCars, getParkingLots, addColumTemplate, toggleLoading, loading, error, toUnpark, parkingLots } = useContext(Context);
+
     useEffect(() => {
-        toggleLoading(true);
         getParkingLots();
         getParkedCars();
     }, [])
@@ -50,18 +47,20 @@ export const Main = () => {
     }
 
     const onChangeOverride = e => {
-        debugger;
         const value = e.target.value;
         const target = e.target.name;
-        const dateParams = value.split('|');
-        const year = dateParams[0] || '';
-        const month = dateParams[1] || '';
-        const date = dateParams[2] || '';
-        const hour = dateParams[3] || '';
-        const minutes = dateParams[4] || '';
-        const toDate = + new Date(year, month, date, hour, minutes);
+        let year, month, date, hour, minutes, toDate;
+        if (value) {
+            const dateParams = value.split('|');
+            year = dateParams[0] || '';
+            month = dateParams[1] || '';
+            date = dateParams[2] || '';
+            hour = dateParams[3] || '';
+            minutes = dateParams[4] || '';
+            toDate = + new Date(year, month, date, hour, minutes);
+        }
         const newOverride = {...override};
-        window[target] = toDate;
+        window[target] = toDate || '';
         newOverride[target] = value;
         setOverride(newOverride);
     }
@@ -76,13 +75,18 @@ export const Main = () => {
                                 <UnparkModal toUnpark={ toUnpark }/>
                             </div>
                         }
+                        {error &&
+                            <div className="modal-container">
+                                <ErrorModal error={error}/>
+                            </div>
+                        }
+                        {loading &&
+                        <Backdrop className={classes.backdrop} open={loading}>
+                            <CircularProgress color="inherit" />
+                        </Backdrop>
+                        }
                         {parkingLots.length > 0 &&
                             <>
-                                {loading &&
-                                <Backdrop className={classes.backdrop} open={loading}>
-                                    <CircularProgress color="inherit" />
-                                </Backdrop>
-                                }
                                 <div className="columns">
                                     {(parkingLots && parkingLots.length) &&
                                         parkingLots.map((columnParkingLots, index) => (<ParkingColumn key={columnParkingLots.id} columnIndex={columnParkingLots.id} parkingLotsSize={parkingLots.length} columnParkingLots={columnParkingLots.data} />))

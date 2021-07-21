@@ -7,74 +7,14 @@
   box-sizing: border-box;
 }
 
-.app {
-  min-height: 100vh;
-  transition: $transition-bezier;
-}
-
-.header {
-  display: flex;
-  width: $full-span;
-  justify-content: space-between;
-  padding: $small-spacing $large-spacing;
-  position: sticky;
-  top: -1px;
-  z-index: 1;
-
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-
-  .theme-switch {
-    display: flex;
-    justify-content: flex-end;
-    padding: $small-spacing;
-  }
-}
-
-button {
-  font-size: $medium-font-size !important  ;
-}
-
-input {
-  border: none;
-  font-size: $medium-font-size;
-  padding: $mid-spacing;
-  outline: none;
-  border-radius: $default-border-radius;
-  box-sizing: content-box;
-  transition: all ease 250ms;
-
-  &:focus {
-    border: 2px solid $primary-color !important;
-    border-radius: $default-border-radius;
-  }
-}
-
-select, option {
-  width: 140px;
-  outline: none;
-  border-radius: $default-border-radius;
-  font-size: $medium-font-size;
-  padding: $mid-spacing;
-  transition: $transition-ease;
-
-  &:focus {
-    border: 2px solid $primary-color !important;
-    border-radius: $default-border-radius;
-  }
-
-  option {
-    margin: $mid-spacing;
-  }
-}
+// Themeing
 
 @each $theme, $value in $themes {
   $bg: map-get($value, "bg");
   $colors: map-get($value, "colors");
   $font: map-get($value, "font");
   $border: map-get($value, "border");
+  $shadow: map-get($value, "shadow");
 
   .app.#{$theme} {
     @each $key, $bg-color in $bg {
@@ -89,6 +29,7 @@ select, option {
 
     .header {
       background-color: var(--bg-overlay);
+      box-shadow: $shadow;
     }
 
     .theme-font-color {
@@ -103,6 +44,10 @@ select, option {
       }
     }
 
+    .total {
+      border: $border;
+      padding: $mid-spacing;
+    }
 
     .parking-lot {
       background-color: var(--bg-primary);
@@ -124,8 +69,82 @@ select, option {
 
 }
 
+// Specific Components Implementation
+
+.app {
+  min-height: $full-viewport-height;
+  transition: $transition-bezier;
+}
+
+.header {
+  position: sticky;
+
+  display: flex;
+  justify-content: space-between;
+
+  width: $full-span;
+  padding: $small-spacing $large-spacing;
+
+  top: -1px;
+  z-index: 1;
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .theme-switch {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding: $small-spacing;
+  }
+}
+
 button {
+  font-size: $medium-font-size !important;
   cursor: pointer;
+}
+
+input {
+  box-sizing: content-box;
+  padding: $mid-spacing;
+
+  outline: none;
+  border: none;
+  border-radius: $default-border-radius;
+
+  font-size: $medium-font-size;
+
+  transition: all ease 250ms;
+
+  &:focus {
+    border: 2px solid $primary-color !important;
+    border-radius: $default-border-radius;
+  }
+}
+
+select, option {
+  width: 140px;
+  
+  padding: $mid-spacing;
+
+  outline: none;
+  border-radius: $default-border-radius;
+
+  font-size: $medium-font-size;
+
+  transition: $transition-ease;
+
+  &:focus {
+    border: 2px solid $primary-color !important;
+    border-radius: $default-border-radius;
+  }
+
+  option {
+    margin: $mid-spacing;
+  }
 }
 
 .main {
@@ -134,20 +153,25 @@ button {
 
 .plate-number-container {
   max-width: 200px;
-  padding: $xsmall-spacing;
-  margin: $xsmall-spacing;
-  background-color: hsl(52, 100%, 59%);
-  border-radius: $default-border-radius;
-  box-shadow: $default-shadow;
   min-width: 40%;
   height: fit-content;
+  padding: $xsmall-spacing;
+  margin: $xsmall-spacing;
+
+  background-color: hsl(52, 100%, 59%);
+  box-shadow: $default-shadow;
+
+  border-radius: $default-border-radius;
+
   transition: $transition-bezier;
 
   .plate-number {
     padding: $xsmall-spacing;
+
     border-radius: $default-border-radius;
     border-top: $thick-border;
     border-bottom: $thick-border;
+
     text-align: center;
   }
 }
@@ -163,6 +187,11 @@ button {
     .details-row {
       display: flex;
       margin-bottom: $xsmall-spacing;
+
+      &.total {
+        font-size: 24px;
+        font-weight: 700;
+      }
 
       div {
         padding: 0 $xsmall-spacing;
@@ -191,7 +220,12 @@ button {
 .btn-controls {
   display: flex;
   justify-content: flex-end;
+
   padding: $small-spacing 0;
+}
+
+.parking-lot {
+  min-height: 90vh;
 }
 
 .columns {
@@ -203,14 +237,25 @@ button {
     min-width: $third-span;
 
     .entry-form {
+      position: relative;
+
       padding: $mid-spacing;
       margin: $xsmall-spacing;
+
       border-radius: $default-border-radius;
+
+      .toaster {
+        position: absolute;
+        z-index: 2;
+        top: -40px;
+        width: 95%;
+      }
 
       .car-details {
         display: flex;
-        width: $full-span;
         justify-content: space-between;
+
+        width: $full-span;
 
         .btn-random {
           border-radius: $full-border-radius;
@@ -234,8 +279,10 @@ button {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
       margin-bottom: $xsmall-spacing;
       margin-bottom: 200px;
+
       transition: $transition-bezier;
 
       &:hover {
@@ -253,17 +300,19 @@ button {
         flex-direction: column-reverse;
 
         .lot {
+          height: 180px;
           margin: $xsmall-spacing;
           padding: $xsmall-spacing;
-          // border: 1px solid #ccc;
+
           border-radius: $default-border-radius;
-          height: 180px;
+
           cursor: pointer;
+
           transition: $transition-bezier;
 
           &:hover {
-            box-shadow: $shadow-hover;
             transform: translateY(-2px);
+            box-shadow: $shadow-hover;
 
             .plate-number-container {
               box-shadow: $shadow-hover;
@@ -278,10 +327,11 @@ button {
           .parking-details {
             .parking-details-row {
               display: flex;
+
               .label {
-                width: 35%;
                 display: flex;
                 justify-content: flex-end;
+                width: 35%;
               }
               .value {
                 padding-left: $xsmall-spacing;
@@ -291,14 +341,18 @@ button {
           }
 
           .size-badge {
-            padding: $xsmall-spacing;
-            border-radius: $half-span;
-            background-color: $light-color;
-            width: $large-spacing;
-            height: $large-spacing;
             display: flex;
             justify-content: center;
             align-items: center;
+
+            width: $large-spacing;
+            height: $large-spacing;
+            padding: $xsmall-spacing;
+
+            border-radius: $half-span;
+
+            background-color: $light-color;
+
             font-weight: 700;
 
             &.occupied {
@@ -322,21 +376,25 @@ button {
 }
 
 .modal-container {
+  position: fixed;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
+
   width: $full-span;
   height: $full-viewport-height;
+
+  top: 0;
+  left: 0;
   z-index: 3;
 
   .modal {
     .form {
-      padding: $large-spacing;
       display: flex;
       flex-direction: column;
+
+      padding: $large-spacing;
 
       .user-field {
         margin-bottom: $large-spacing;
@@ -354,4 +412,7 @@ button {
   }
 }
 
+.error-color {
+  color: $error-color;
+}
 

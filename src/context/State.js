@@ -41,7 +41,10 @@ export const Provider = ({ children }) => {
                payload: res.data
             })
         } catch (error) {
-            
+            dispatch({
+               type: 'ERROR',
+               payload: null
+            })
         }
     }
 
@@ -53,13 +56,15 @@ export const Provider = ({ children }) => {
                payload: res.data
             })
         } catch (error) {
-            
+            dispatch({
+               type: 'ERROR',
+               payload: null
+            })
         }
     }
 
     const addColumTemplate = async () => {
         try {
-            debugger;
             const newColumn = createColumnTemplate(state.parkingLots.length);
             const config = {
                 headers: {
@@ -95,9 +100,8 @@ export const Provider = ({ children }) => {
     }
 
     const park = async ( payload ) => {
-        // debugger;
-        const { car, wasParked, returningWithinOneHour, columnIndex } = payload;
-        const parkedCar = state.parkedCars.find(car => car.plateNumber === car.plateNumber);
+        const { car, wasParked, columnIndex } = payload;
+
         try {
             const config = { headers: { 'Content-Type': 'application/json', } };
             const { columnToUpdate, currentCol } = await mapVehicle(state.parkingLots, car, columnIndex);
@@ -122,13 +126,12 @@ export const Provider = ({ children }) => {
             }
             else {
                 dispatch({
-                    type: 'TOGGLE_LOADING',
-                    payload: false
+                    type: 'SET_ERROR',
+                    payload: 'No parking lot found!'
                 })
             }
 
         } catch (error) {
-            console.error(error);
             dispatch({
                type: 'ERROR',
                payload: null
@@ -137,7 +140,6 @@ export const Provider = ({ children }) => {
     }
 
     const unpark = async (car, lotSize, target) => {
-        debugger;
         const { entryString, exitString,  total, hours, days, hourlyRate } = calculateTotal(car, lotSize);
         car.timeOut = + new Date();
         const targetColumn = state.parkingLots[target[0]];
@@ -167,12 +169,11 @@ export const Provider = ({ children }) => {
                }
             })
         } catch (error) {
-            
+            dispatch({
+               type: 'ERROR',
+               payload: null
+            })
         }
-    }
-
-    const getCarDetails = async () => {
-
     }
 
     const clearToUnpark = () => {
@@ -188,6 +189,13 @@ export const Provider = ({ children }) => {
            payload: { 
                 toggle
            }
+        })
+    }
+
+    const clearError = () => {
+        dispatch({
+           type: 'CLEAR_ERROR',
+           payload: '',
         })
     }
 
@@ -207,6 +215,7 @@ export const Provider = ({ children }) => {
                 park,
                 unpark,
                 clearToUnpark,
+                clearError,
         }}>
             { children }
         </Context.Provider>

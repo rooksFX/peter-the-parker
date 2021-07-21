@@ -6,11 +6,10 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
     const car = parkedCars.find(car => {
         return car.plateNumber === lot;
     }) || {};
-    const { size } = car;
-    const sizeLabel = !size? '': size === '0'? 's': size === '1'? 'm': 'l';
+    const { plateNumber, size, ogTimeIn } = car;
+    const sizeLabel = !size? '': size === '0'? 'S': size === '1'? 'M': 'L';
 
     const submitForUnparking = () => {
-        debugger;
         if (!lot) return;
         const columnToUpdate = parkingLots[columnIndex].data;
         columnToUpdate[rowIndex][groupIndex][lotIndex] = '';
@@ -44,7 +43,9 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
                             </div>
                             <div className="value">
                                 <h5>
-                                    {new Date(car.ogTimeIn).toLocaleTimeString()}  
+                                    {ogTimeIn && 
+                                        new Date(ogTimeIn).toLocaleTimeString()  
+                                    }
                                 </h5>
                             </div>
                         </div>
@@ -56,7 +57,9 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
                             </div>
                             <div className="value">
                                 <h5>
-                                    {new Date(car.ogTimeIn).toDateString()}
+                                    {ogTimeIn && 
+                                        new Date(ogTimeIn).toDateString()
+                                    }
                                 </h5>
                             </div>
                         </div>

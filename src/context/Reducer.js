@@ -27,23 +27,19 @@ export default (state, action) => {
         case 'PARK':
             const { columnToUpdate, car } = action.payload
 
-            const hehe = state.parkingLots.filter(column => column.id !== columnToUpdate.id);
-            hehe.unshift(columnToUpdate);
+            const updateParkingLots = state.parkingLots.filter(column => column.id !== columnToUpdate.id);
+            updateParkingLots.unshift(columnToUpdate);
 
-            const test = state.parkedCars.filter(parkedCar => parkedCar.id !== car.id);
-            test.unshift(car);
-
-            debugger;
-
+            const updateParkedCars = state.parkedCars.filter(parkedCar => parkedCar.id !== car.id);
+            updateParkedCars.unshift(car);
             return {
                 ...state,
-                parkingLots: hehe.sort((a, b) => a.id - b.id),
-                parkedCars: test.sort((a, b) => a.id - b.id),
+                parkingLots: updateParkingLots.sort((a, b) => a.id - b.id),
+                parkedCars: updateParkedCars.sort((a, b) => a.id - b.id),
                 loading: false
             }
         case 'UNPARK':
             const { unparkedCar, targetColumn, toUnpark } = action.payload;
-            debugger;
             const updatedParkingLots = state.parkingLots.filter(column => column.id !== targetColumn.id);
             updatedParkingLots.unshift(targetColumn);
 
@@ -56,14 +52,8 @@ export default (state, action) => {
                 loading: false,
                 toUnpark,
             }
-        
-        case 'ADD_ENTRY':
-        
-            break;
-        case 'DELETE_ENTRY':
 
         case 'TOGGLE_LOADING':
-            // console.log('TOGGLE_LOADING: ', action.payload);
             return {
                 ...state,
                 loading: action.payload
@@ -80,6 +70,20 @@ export default (state, action) => {
                 ...state,
                 loading: false,
             }
+
+        case 'SET_ERROR': 
+        return {
+            ...state,
+            loading: false,
+            error: action.payload
+        }
+
+        case 'CLEAR_ERROR': 
+        return {
+            ...state,
+            loading: false,
+            error: action.payload
+        }
     
         default:
             break;

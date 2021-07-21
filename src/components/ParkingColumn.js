@@ -8,34 +8,18 @@ import { getMinutesDifference } from '../utils';
 import { Context } from '../context/State';
 import { ParkingRow } from './ParkingRow';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { Replay as RandomizeIcon } from '@material-ui/icons';
-import { 
-    Button,
-    TextField,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
-    Input
-} from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import { Button } from "@material-ui/core";
+import { Alert } from '@material-ui/lab'
 
 export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots }) => {
-    // console.log('columnParkingLots: ', columnParkingLots);
-    const classes = useStyles();
     const { park, parkedCars, deleteColumTemplate, toggleLoading, loading } = useContext(Context);
+
     const [plateNumber, setPlateNumber] = useState('');
     const [size, setSize] = useState('0')
+    const [isDuplicate, setIsDuplicate] = useState(false)
+    const [isOccupied, setOccupied] = useState(false)
+    
 
     const onChangePlateNumber = e => {
         const value = e.target.value;
@@ -48,25 +32,23 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
     }
 
     const onPark = () => {
-        // console.log('onPark: ', columnParkingLots);
-        // debugger;
+        if (isDuplicate || isOccupied) return;
         if (!plateNumber) return;
         const parkedCar = parkedCars.find(car => car.plateNumber === plateNumber);
 
         if (!_.isEmpty(parkedCar)) {
             const { timeOut } = parkedCar;
             if (!timeOut) {
-                // Still parked
+                setIsDuplicate(true);
+                setTimeout(() => setIsDuplicate(false), 2500);
             }
             else {
                 const { id, size: parkedCarSize, timeIn, timeOut } = parkedCar;
-                // const returningWithinOneHour = isReturningWithinOneHour(parkedCar.timeOut);
                 const returningWithinOneHour = getMinutesDifference(+ new Date(), timeOut) < 60;
                 const carUpdate = {
                     plateNumber,
                     id,
                     size: returningWithinOneHour? parkedCarSize: size,
-                    // timeIn: returningWithinOneHour? window.reEntry || timeIn : + new Date(),
                     timeIn: window.reEntry  || + new Date(),
                     ogTimeIn: returningWithinOneHour? parkedCar.ogTimeIn : + new Date(),
                     timeOut: null,
@@ -102,23 +84,24 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
     }
 
     const generatePlateNumber = () => {
-        // debugger;
         const randomPlateNumber = newYork();
         setPlateNumber(randomPlateNumber);
     }
 
-    const columnNotEmpty = () => {
+    const columnOccupied = () => {
         const lots = columnParkingLots.flat(2).filter(values => values !== '');
         return !lots.length
     }
 
     const onDeleteColumn = () => {
-        debugger;
-        // console.log('onDeleteColumn: ', columnParkingLots);
-        const lots = columnParkingLots.flat(2).filter(values => values !== '');
-        if (columnNotEmpty()) {
+        if (isDuplicate || isOccupied) return;
+        if (columnOccupied()) {
             toggleLoading(true);
             deleteColumTemplate(columnIndex);
+        }
+        else {
+            setOccupied(true);
+            setTimeout(() => setOccupied(false), 2500);
         }
     }
 
@@ -129,6 +112,11 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
             </div>
             
             <div className="entry-form">
+                {(isDuplicate || isOccupied) &&
+                    <Alert className="toaster" elevation={6} variant="filled" severity="error">
+                        {isDuplicate? 'Duplicate Plate Number!': 'Column is still occupied!'}
+                    </Alert>
+                }
                 <div className="car-details">
                     <Button
                         className="btn-random"
@@ -143,6 +131,7 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
                         className="plate-number theme-font-color"
                         placeholder="Plate Number"
                         name="plate_number"
+                        maxLength={8}
                         value={plateNumber}
                         onChange={onChangePlateNumber}
                     />
@@ -156,19 +145,6 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
                         <option value="1">Medium</option>
                         <option value="2">Large</option>
                     </select>
-                    {/* <FormControl>
-                        <InputLabel id="label-size">Size</InputLabel>
-                        <Select
-                            labelId="label-size"
-                            id="size-selector"
-                            value={size}
-                            onChange={onChangeSize}
-                        >
-                            <MenuItem value="0">Small</MenuItem>
-                            <MenuItem value="1">Medium</MenuItem>
-                            <MenuItem value="2">Large</MenuItem>
-                        </Select>
-                    </FormControl> */}
                 </div>
                 <div className="btn-controls">
                     <Button
