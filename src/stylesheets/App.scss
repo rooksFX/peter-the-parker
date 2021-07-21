@@ -1,9 +1,127 @@
 @import './c_app.scss';
+@import './c_themes.scss';
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+.app {
+  min-height: 100vh;
+  transition: $transition-bezier;
+}
+
+.header {
+  display: flex;
+  width: $full-span;
+  justify-content: space-between;
+  padding: $small-spacing $large-spacing;
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+
+  .theme-switch {
+    display: flex;
+    justify-content: flex-end;
+    padding: $small-spacing;
+  }
+}
+
+button {
+  font-size: $medium-font-size !important  ;
+}
+
+input {
+  border: none;
+  font-size: $medium-font-size;
+  padding: $mid-spacing;
+  outline: none;
+  border-radius: $default-border-radius;
+  box-sizing: content-box;
+  transition: all ease 250ms;
+
+  &:focus {
+    border: 2px solid $primary-color !important;
+    border-radius: $default-border-radius;
+  }
+}
+
+select, option {
+  width: 140px;
+  outline: none;
+  border-radius: $default-border-radius;
+  font-size: $medium-font-size;
+  padding: $mid-spacing;
+  transition: $transition-ease;
+
+  &:focus {
+    border: 2px solid $primary-color !important;
+    border-radius: $default-border-radius;
+  }
+
+  option {
+    margin: $mid-spacing;
+  }
+}
+
+@each $theme, $value in $themes {
+  $bg: map-get($value, "bg");
+  $colors: map-get($value, "colors");
+  $font: map-get($value, "font");
+  $border: map-get($value, "border");
+
+  .app.#{$theme} {
+    @each $key, $bg-color in $bg {
+      --#{$key}: #{$bg-color};
+    }
+    @each $key, $color in $colors {
+      --#{$key}: #{$color};
+    }
+
+    background: var(--bg-primary);
+    background-color: var(--bg-secondary);
+
+    .header {
+      background-color: var(--bg-overlay);
+    }
+
+    .theme-font-color {
+      color: $font;
+    }
+
+    .modal-container {
+      background-color: var(--bg-overlay);
+
+      .modal > div {
+        background-color: var(--bg-secondary);
+      }
+    }
+
+
+    .parking-lot {
+      background-color: var(--bg-primary);
+    }
+
+    .row {
+      border: 2px solid var(--bg-primary);
+    }
+
+    input, select {
+      background-color: var(--bg-input);
+      border: 2px solid var(--bg-input);
+    }
+
+    .entry-form {
+      border: $border;
+    }
+  }
+
 }
 
 button {
@@ -18,11 +136,12 @@ button {
   max-width: 200px;
   padding: $xsmall-spacing;
   margin: $xsmall-spacing;
-  background-color: #ffe22e;
+  background-color: hsl(52, 100%, 59%);
   border-radius: $default-border-radius;
   box-shadow: $default-shadow;
   min-width: 40%;
   height: fit-content;
+  transition: $transition-bezier;
 
   .plate-number {
     padding: $xsmall-spacing;
@@ -39,6 +158,7 @@ button {
 
   .details {
     flex-grow: 2;
+    margin-left: $mid-spacing;
 
     .details-row {
       display: flex;
@@ -62,47 +182,17 @@ button {
 .override {
   padding: $large-spacing 0;
   display: flex;
-  justify-content: space-evenly;
+
+  input {
+    margin-right: $mid-spacing;
+  }
 }
 
 .btn-controls {
   display: flex;
   justify-content: flex-end;
-  padding: $xsmall-spacing 0;
+  padding: $small-spacing 0;
 }
-
-// .rows {
-//   display: flex;
-//   flex-direction: column-reverse;
-//   overflow-x: auto;
-
-//   .row {
-//     display: flex;
-//     width: $full-span;
-//     // height: 250px;
-//     border: 1px solid red;
-//   }
-// }
-
-// .columns {
-//   display: flex;
-//   border: 1px solid red;
-//   min-width: 33.33%;
-//   justify-content: space-between;
-
-//   .group {
-//     display: flex;
-//     width: 40%;
-//     border: 1px solid red;
-//     flex-direction: column-reverse;
-
-//     .lot {
-//       width: $full-span;
-//       height: 140px;
-//       border: 1px solid red;
-//     }
-//   }
-// }
 
 .columns {
   display: flex;
@@ -111,11 +201,9 @@ button {
   .column {
     flex-grow: 1;
     min-width: $third-span;
-    // border: 1px solid red;
 
     .entry-form {
-      padding: $xsmall-spacing;
-      border: $border;
+      padding: $mid-spacing;
       margin: $xsmall-spacing;
       border-radius: $default-border-radius;
 
@@ -125,7 +213,8 @@ button {
         justify-content: space-between;
 
         .btn-random {
-          height: 54px;
+          border-radius: $full-border-radius;
+          height: 64px;
           margin-right: $small-spacing;
         }
 
@@ -133,11 +222,6 @@ button {
           flex-grow: 2;
           margin-right: $small-spacing;
         }
-      }
-
-      .btn-controls {
-        display: flex;
-        justify-content: flex-end;
       }
     }
 
@@ -150,12 +234,16 @@ button {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      margin-bottom: 7$xsmall-spacing;
-      border-top: 1px dashed red;
-      border-bottom: 1px solid #ccc;
-      margin-bottom: 100px;
+      margin-bottom: $xsmall-spacing;
+      margin-bottom: 200px;
+      transition: $transition-bezier;
 
-      &:last-child {
+      &:hover {
+        border: 2px solid $primary-color;
+        border-radius: $default-border-radius;
+      }
+
+      &:first-child {
         margin-bottom: 80px;
       }
 
@@ -169,11 +257,13 @@ button {
           padding: $xsmall-spacing;
           // border: 1px solid #ccc;
           border-radius: $default-border-radius;
-          height: 170px;
+          height: 180px;
           cursor: pointer;
+          transition: $transition-bezier;
+
           &:hover {
             box-shadow: $shadow-hover;
-            transform: translate(-2px,-2px);
+            transform: translateY(-2px);
 
             .plate-number-container {
               box-shadow: $shadow-hover;
@@ -203,7 +293,7 @@ button {
           .size-badge {
             padding: $xsmall-spacing;
             border-radius: $half-span;
-            background-color: #fff;
+            background-color: $light-color;
             width: $large-spacing;
             height: $large-spacing;
             display: flex;
@@ -212,19 +302,19 @@ button {
             font-weight: 700;
 
             &.occupied {
-              background-color: red;
-              color: #fff;
+              background-color: rgb(255, 0, 0);
+              color: $light-color;
             }
           }
         }
         .lot-0 {
-          background-color: rgb(181, 236, 165);
+          background-color: hsl(106, 65%, 79%);
         }
         .lot-1 {
-          background-color: rgb(236, 226, 165);
+          background-color: hsl(52, 65%, 79%);
         }
         .lot-2 {
-          background-color: rgb(216, 157, 157);
+          background-color: hsl(0, 43%, 73%);
         }
       }
     }
@@ -240,8 +330,7 @@ button {
   left: 0;
   width: $full-span;
   height: $full-viewport-height;
-  background-color: rgba(250, 250, 250, 0.5);
-  z-index: 2;
+  z-index: 3;
 
   .modal {
     .form {

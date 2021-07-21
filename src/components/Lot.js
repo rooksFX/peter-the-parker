@@ -9,8 +9,6 @@ export const Lot = ({ lot, lotIndex, groupIndex, columnIndex, rowIndex }) => {
     const { size } = car;
     const sizeLabel = !size? '': size === '0'? 's': size === '1'? 'm': 'l';
 
-    if (lot === 'GBJ-7290') debugger;
-
     const submitForUnparking = () => {
         debugger;
         if (!lot) return;

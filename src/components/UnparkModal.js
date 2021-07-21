@@ -26,7 +26,10 @@ export const UnparkModal = ({ toUnpark }) => {
                                 <h6>Coruscant</h6>
                             </div>
                         </div>
-                        <div className="details">
+                        <div className="details theme-font-color">
+                            <div className="details-row">
+                                <h4>Parking Details</h4>
+                            </div>
                             <div className="details-row">
                                 <div className="details-label">
                                     Time in: 

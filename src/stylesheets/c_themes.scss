@@ -1,0 +1,32 @@
+$themes: (
+  "light": (
+    "bg": (
+      "bg-primary": hsl(0, 0%, 100%),
+      "bg-secondary": hsl(0, 0%, 95%),
+      "bg-overlay": hsla(0, 0%, 90%, 90%),
+      "bg-input": 	hsl(0, 0%, 93%),
+    ),
+    "colors": (
+      "color-primary": 	hsl(0, 0%, 9%),
+      "color-secondary": 	hsl(0, 0%, 14%),
+      "color-tertiary": hsl(0, 0%, 12%),
+    ),
+    "font": #0e0e0e,
+    "border": 1px solid hsl(0, 0%, 80%)
+  ),
+  "dark": (
+    "bg": (
+      "bg-primary": hsl(0, 0%, 9%),
+      "bg-secondary": hsl(0, 0%, 14%),
+      "bg-overlay": hsla(0, 0%, 10%, 90%),
+      "bg-input": hsl(0, 0%, 12%),
+    ),
+    "colors": (
+      "color-primary": 	hsl(0, 0%, 88%),
+      "color-secondary": hsl(0, 0%, 69%),
+      "color-tertiary": hsl(0, 0%, 53%),
+    ),
+    "font": hsl(213,6,80),
+    "border": 1px solid rgb(56, 56, 56)
+  )
+);

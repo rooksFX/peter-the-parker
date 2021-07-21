@@ -16,7 +16,8 @@ import {
     FormControl,
     InputLabel,
     Select,
-    MenuItem
+    MenuItem,
+    Input
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -106,11 +107,16 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
         setPlateNumber(randomPlateNumber);
     }
 
+    const columnNotEmpty = () => {
+        const lots = columnParkingLots.flat(2).filter(values => values !== '');
+        return !lots.length
+    }
+
     const onDeleteColumn = () => {
         debugger;
         // console.log('onDeleteColumn: ', columnParkingLots);
         const lots = columnParkingLots.flat(2).filter(values => values !== '');
-        if (!lots.length) {
+        if (columnNotEmpty()) {
             toggleLoading(true);
             deleteColumTemplate(columnIndex);
         }
@@ -132,16 +138,25 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
                     >
                         <RandomizeIcon/>
                     </Button>
-                    <TextField 
-                        className="plate-number"
-                        id="outlined-basic"
-                        label="Plate Number"
+                    <input
+                        type="text" 
+                        className="plate-number theme-font-color"
+                        placeholder="Plate Number"
                         name="plate_number"
-                        variant="outlined"
                         value={plateNumber}
                         onChange={onChangePlateNumber}
                     />
-                    <FormControl className={classes.formControl}>
+                    <select
+                        className="size-selector theme-font-color"
+                        id="size-selector"
+                        value={size}
+                        onChange={onChangeSize}
+                    >
+                        <option value="0">Small</option>
+                        <option value="1">Medium</option>
+                        <option value="2">Large</option>
+                    </select>
+                    {/* <FormControl>
                         <InputLabel id="label-size">Size</InputLabel>
                         <Select
                             labelId="label-size"
@@ -153,7 +168,7 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
                             <MenuItem value="1">Medium</MenuItem>
                             <MenuItem value="2">Large</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
                 </div>
                 <div className="btn-controls">
                     <Button
@@ -164,20 +179,20 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
                         PARK
                     </Button>
                 </div>
-                { (columnIndex > 2
-                    && columnIndex === parkingLotsSize - 1
-                    ) &&
-                    <div className="btn-controls">
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={onDeleteColumn}
-                        >
-                            DELETE COLUMN
-                        </Button>
-                    </div>
-                }
             </div>
+            { (columnIndex > 2
+                && columnIndex === parkingLotsSize - 1
+                ) &&
+                <div className="btn-controls">
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={onDeleteColumn}
+                    >
+                        DELETE COLUMN
+                    </Button>
+                </div>
+            }
         </div>
     )
 }

@@ -56,103 +56,51 @@ export const mapVehicle = (parkingLots, payload, entryPoint) => {
                 // Directly extract row
                 const isLeftSide = id < entryPoint;
                 const rows = data[level];
-                for (let groupIndex = isLeftSide? 1: 0; 
-                    isLeftSide? groupIndex >= 0 :groupIndex < rows.length; 
-                    isLeftSide? groupIndex--: groupIndex++) {
+
+                for (let groupLevel = 0;groupLevel < 3; groupLevel++) {
                     if (parked) break;
-                    const group = rows[groupIndex];
-        
-                    for (let lotIndex = 0; lotIndex < group.length; lotIndex++) {
-                        if (parked) break;
-                        // const lot = group[lotIndex];
-                        if (lotIndex >= parseInt(size) && !group[lotIndex]) {
-                            group[lotIndex] = plateNumber;
-                            parked = true;
-                            // console.log('colId: ', colId, 'entryPoint: ', entryPoint);
-                            revertLots(sortedLots, id);
-                            break;
-                        }
+                    const fLot = isLeftSide? 1: 0;
+                    const sLot = isLeftSide? 0: 1;
+                    debugger;
+                    if (groupLevel >= parseInt(size) && !rows[fLot][groupLevel]) {
+                        rows[fLot][groupLevel] = plateNumber;
+                        parked = true;
+
+                        revertLots(sortedLots, id);
+                        break;
                     }
-            
+                    if (groupLevel >= parseInt(size) && !rows[sLot][groupLevel]) {
+                        rows[sLot][groupLevel] = plateNumber;
+                        parked = true;
+
+                        revertLots(sortedLots, id);
+                        break;
+                    }
                 }
+
+                // for (let groupIndex = isLeftSide? 1: 0; 
+                //     isLeftSide? groupIndex >= 0 :groupIndex < rows.length; 
+                //     isLeftSide? groupIndex--: groupIndex++) {
+                //     if (parked) break;
+                //     const group = rows[groupIndex];
+        
+                //     for (let lotIndex = 0; lotIndex < group.length; lotIndex++) {
+                //         if (parked) break;
+                //         // const lot = group[lotIndex];
+                //         if (lotIndex >= parseInt(size) && !group[lotIndex]) {
+                //             group[lotIndex] = plateNumber;
+                //             parked = true;
+                //             // console.log('colId: ', colId, 'entryPoint: ', entryPoint);
+                //             revertLots(sortedLots, id);
+                //             break;
+                //         }
+                //     }
+            
+                // }
             }
         }
         if (!parked) resolvePromise({ columnToUpdate: null, currentCol: null });   
     }
-
-    // const traverseParkingLots = (currentCol) => {
-    //     console.log('traverseParkingLots: ', currentCol );
-    //     const column = sortedLots[currentCol];
-    //     const { data: colData, id: colId} = column;
-    //     for (const rowIndex = lastRows[currentCol]+1 || 0; rowIndex < colData.length; rowIndex) {
-    //         const row = colData[rowIndex];
-    //         if (parked) break;
-    //         // if (currentCol < entryPoint) {
-
-    //         // }
-    //         const isLeftSide = colId < entryPoint? true: false;
-    //         console.log('isLeftSide: ', isLeftSide, colId, entryPoint);
-    //         // for (let groupIndex = 0; groupIndex < row.length; groupIndex++) {
-    //         // for (let groupIndex = 1; groupIndex >= 0; groupIndex--) {
-    //         const groupCondition = groupIndex => {
-    //             if (isLeftSide) return groupIndex < row.length;
-    //             return groupIndex >= 0;
-    //         }
-
-    //         const groupIterator = groupIndex => {
-    //             if (isLeftSide) return groupIndex--;
-    //             return groupIndex++;
-    //         }
-            
-    //         debugger;
-
-    //         for (let groupIndex = isLeftSide? 1:0; 
-    //             groupCondition(groupIndex); 
-    //             isLeftSide? groupIndex--: groupIndex++) {
-    //             const group = row[groupIndex];
-    //         // for (const [groupIndex, group] of row.entries()) {
-    //             if (parked) break;
-    //             for (let [lotIndex, value] of group.entries()) {
-    //                 if (parked) break;
-
-    //                 if (lotIndex >= parseInt(size) && !value) {
-    //                     group[lotIndex] = plateNumber;
-    //                     parked = true;
-    //                     console.log('colId: ', colId, 'entryPoint: ', entryPoint);
-    //                     revertLots(sortedLots, colId);
-    //                     break;
-    //                 }
-    //                 else {
-    //                     if (groupIndex === isLeftSide? 0: 1 && lotIndex === 2) {
-    //                         if (lastRows[currentCol] === undefined) {
-    //                             if (lastColumns[rowIndex] === undefined) lastColumns[rowIndex] = currentCol;
-    //                             lastRows[currentCol] = rowIndex;
-    //                             let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
-    //                             traverseParkingLots(nextCol);
-    //                         }
-    //                         else {
-    //                             if (lastRows[currentCol] < rowIndex) {
-    //                                 lastRows[currentCol] = rowIndex;
-    //                                 let nextCol = currentCol < columnsSize - 1? currentCol + 1: 0;
-    //                                 traverseParkingLots(nextCol);
-    //                             }
-    //                         }
-    //                     }
-    //                     if (currentCol === columnsSize -1
-    //                         && rowIndex === colData.length - 1
-    //                         && groupIndex === row.length -1
-    //                         && lotIndex === group.length -1) {
-    //                             console.log('End of the list');
-    //                             resolvePromise({ columnToUpdate: null, currentCol: null });
-    //                             parked = true;
-    //                             break;
-    //                         }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // };
-    // traverseParkingLots(0);
 
     search();
 
@@ -185,7 +133,6 @@ export const isBeyondOneHour = (exit) => {
 
 export const getMinutesDifference = (time2, time1) => {
     console.info('getMinutesDifference');
-    debugger;
     let diff =(time2 - time1) / 1000;
     diff /= 60;
     diff = Math.abs(Math.round(diff))
@@ -194,7 +141,6 @@ export const getMinutesDifference = (time2, time1) => {
 };
 
 export const calculateTotal = (car, lotSize) => {
-    debugger;
     let { timeIn, ogTimeIn } = car;
     const currentTimestamp = window.exit || + new Date();
 
@@ -214,7 +160,7 @@ export const calculateTotal = (car, lotSize) => {
             total = 40;
             total += extension * hourlyRate;
         }
-        if (days > 1) total += days * 5000;
+        if (days >= 1) total += days * 5000;
     }
     else {
         if (returningWithinOneHour) {
@@ -223,6 +169,7 @@ export const calculateTotal = (car, lotSize) => {
         else {
             total = 40;
         }
+        if (days >= 1) total += days * 5000;
     }
 
     const entryString = returningWithinOneHour? new Date(timeIn).toLocaleString(): new Date(ogTimeIn).toLocaleString();
