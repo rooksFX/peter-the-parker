@@ -58,6 +58,16 @@ export const UnparkModal = ({ toUnpark }) => {
                                     </h4>
                                 </div>
                             </div>
+                            <div className="details-row">
+                                <div className="details-label">
+                                    Lot Size:
+                                </div>
+                                <div className="details-value">
+                                    <h4>
+                                        { toUnpark.lotSizelabel }
+                                    </h4>
+                                </div>
+                            </div>
                             {toUnpark.days > 0 &&
                                 <div className="details-row">
                                     <div className="details-label">

@@ -16,7 +16,7 @@ export const ErrorModal = ({ error }) => {
     }
 
     return (
-        <Container className="modal" maxWidth="sm">
+        <Container className="modal error" maxWidth="sm">
             <Card>
                 <CardHeader/>
                 <CardContent>

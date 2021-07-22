@@ -44,13 +44,14 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
             }
             else {
                 const { id, size: parkedCarSize, timeIn, timeOut } = parkedCar;
-                const returningWithinOneHour = getMinutesDifference(+ new Date(), timeOut) < 60;
+                const reEntry = window.reEntry || + new Date();
+                const returningWithinOneHour = getMinutesDifference(reEntry, timeOut) < 60;
                 const carUpdate = {
                     plateNumber,
                     id,
                     size: returningWithinOneHour? parkedCarSize: size,
                     timeIn: window.reEntry  || + new Date(),
-                    ogTimeIn: returningWithinOneHour? parkedCar.ogTimeIn : + new Date(),
+                    ogTimeIn: returningWithinOneHour? parkedCar.ogTimeIn : window.reEntry || + new Date(),
                     timeOut: null,
                 }
                 toggleLoading(true);
@@ -66,10 +67,10 @@ export const ParkingColumn = ({ columnIndex, parkingLotsSize, columnParkingLots 
         else {
             const newCar = {
                 plateNumber,
-                id: parkedCars.length + 1,
+                id: plateNumber,
                 size,
-                timeIn: window.reEntry || + new Date(),
-                ogTimeIn: window.reEntry || + new Date(),
+                timeIn: window.entry || + new Date(),
+                ogTimeIn: window.entry || + new Date(),
                 timeOut: null,
             }
             toggleLoading(true);

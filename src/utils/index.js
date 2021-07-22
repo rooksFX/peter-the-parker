@@ -44,7 +44,7 @@ export const mapVehicle = (parkingLots, payload, entryPoint) => {
     const search = () => {
 
         // Level is actually the row per column
-        for (let level = 0; level < 4; level++) {
+        for (let level = 0; level < 3; level++) {
 
             if (parked) break;
 
@@ -117,11 +117,9 @@ export const isBeyondOneHour = (exit) => {
 }
 
 export const getMinutesDifference = (time2, time1) => {
-    console.info('getMinutesDifference');
     let diff =(time2 - time1) / 1000;
     diff /= 60;
     diff = Math.abs(Math.round(diff))
-    console.log('diff: ', diff);
     return diff;
 };
 
@@ -159,5 +157,7 @@ export const calculateTotal = (car, lotSize) => {
     const entryString = returningWithinOneHour? new Date(timeIn).toLocaleString(): new Date(ogTimeIn).toLocaleString();
     const exitString = new Date(currentTimestamp).toLocaleString();
 
-    return { entryString, exitString, total, hours, days, hourlyRate };
+    const lotSizelabel = lotSize === 0? 'Small': lotSize === 1? 'Medium': 'Large';
+
+    return { entryString, exitString, total, hours, days, hourlyRate, lotSizelabel};
 }

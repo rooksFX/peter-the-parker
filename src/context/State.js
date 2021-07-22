@@ -20,7 +20,6 @@ const createColumnTemplate = id => {
         [
             [ [ "", "", "" ], [ "", "", "" ] ],
             [ [ "", "", "" ], [ "", "", "" ] ],
-            [ [ "", "", "" ], [ "", "", "" ] ],
             [ [ "", "", "" ], [ "", "", "" ] ]
         ]
     }
@@ -42,8 +41,8 @@ export const Provider = ({ children }) => {
             })
         } catch (error) {
             dispatch({
-               type: 'ERROR',
-               payload: null
+                type: 'SET_ERROR',
+                payload: 'Something went wrong!'
             })
         }
     }
@@ -57,8 +56,8 @@ export const Provider = ({ children }) => {
             })
         } catch (error) {
             dispatch({
-               type: 'ERROR',
-               payload: null
+                type: 'SET_ERROR',
+                payload: 'Something went wrong!'
             })
         }
     }
@@ -78,8 +77,8 @@ export const Provider = ({ children }) => {
             })
         } catch (error) {
             dispatch({
-               type: 'ERROR',
-               payload: null
+                type: 'SET_ERROR',
+                payload: 'Something went wrong!'
             })
         }
     }
@@ -93,8 +92,8 @@ export const Provider = ({ children }) => {
             })
         } catch (error) {
             dispatch({
-               type: 'ERROR',
-               payload: null
+                type: 'SET_ERROR',
+                payload: 'Something went wrong!'
             })
         }
     }
@@ -133,15 +132,15 @@ export const Provider = ({ children }) => {
 
         } catch (error) {
             dispatch({
-               type: 'ERROR',
-               payload: null
+                type: 'SET_ERROR',
+                payload: 'Something went wrong!'
             })
         }
     }
 
     const unpark = async (car, lotSize, target) => {
-        const { entryString, exitString,  total, hours, days, hourlyRate } = calculateTotal(car, lotSize);
-        car.timeOut = + new Date();
+        const { entryString, exitString,  total, hours, days, hourlyRate, lotSizelabel } = calculateTotal(car, lotSize);
+        car.timeOut = window.exit || + new Date();
         const targetColumn = state.parkingLots[target[0]];
         targetColumn.data[target[1]][target[2]][target[3]] = '';
         try {
@@ -157,7 +156,8 @@ export const Provider = ({ children }) => {
                 total,
                 hours,
                 days,
-                hourlyRate
+                hourlyRate,
+                lotSizelabel
             }
 
             dispatch({
@@ -170,8 +170,8 @@ export const Provider = ({ children }) => {
             })
         } catch (error) {
             dispatch({
-               type: 'ERROR',
-               payload: null
+                type: 'SET_ERROR',
+                payload: 'Something went wrong!'
             })
         }
     }
